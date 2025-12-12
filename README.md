@@ -19,7 +19,7 @@
 
 <!-- START_BLUEPRINTS -->
 
-### 🤖 (УРА)Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
+### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -285,7 +285,7 @@ Just click the blue "Import" button under the desired blueprint below.
 
 <!-- START_BLUEPRINTS_EN -->
 
-### 🤖 (УРА)Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
+### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
