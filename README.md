@@ -19,7 +19,7 @@
 
 <!-- START_BLUEPRINTS -->
 
-### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint)!!ТЕСТ!!
+### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Smart laundry
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -205,7 +205,7 @@ Just click the blue "Import" button under the desired blueprint below.
 
 <!-- START_BLUEPRINTS_EN -->
 
-### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint)!!ТЕСТ!!
+### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Smart laundry
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
