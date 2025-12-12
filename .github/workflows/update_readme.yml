@@ -16,9 +16,8 @@ permissions:
 jobs:
   update-readme:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (full)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -38,51 +37,40 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml
 
-      - name: Show README before update (first 120 lines)
-        if: always()
+      - name: Show README top (for debug)
         run: |
-          echo "----- README BEFORE -----"
-          sed -n '1,120p' README.md || true
-          echo "-------------------------"
+          echo "---- README head before ----"
+          head -n 80 README.md || true
+          echo "----------------------------"
 
-      - name: Run generator script
+      - name: Run generator (produce changes)
         id: run_generator
         run: |
           set -o pipefail
           python scripts/update_readme.py 2>&1 | tee update_readme.log
-          echo "exit_code=$?" > generator_status.txt
-          tail -n +1 update_readme.log
-        continue-on-error: false
-
-      - name: Show README after update (first 120 lines)
-        if: always()
-        run: |
-          echo "----- README AFTER -----"
-          sed -n '1,120p' README.md || true
-          echo "------------------------"
+          echo "=== generator stdout (tail 200) ==="
+          tail -n 200 update_readme.log || true
 
       - name: Show git status & diff
         run: |
-          git status --porcelain
+          echo "git status:"
+          git status --porcelain || true
           echo "---- diff (if any) ----"
           git --no-pager diff README.md || true
           echo "------------------------"
 
-      - name: Commit README if changed
+      - name: Commit and push only if changed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Only commit if README.md changed
           if git diff --quiet -- README.md; then
-            echo "No changes to README.md, nothing to commit."
+            echo "No changes to README.md -> nothing to commit."
             exit 0
           fi
 
           git add README.md
-          git commit -m "docs: update README with latest blueprint descriptions [skip ci]" -a
-          git push origin HEAD:main
-
+          git commit -m "docs: update README with latest blueprint descriptions [skip ci]"
+          git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
