@@ -92,7 +92,6 @@ blueprint:
     
 domain: automation
 
-  
   input:
     power_sensor:
       name: Сенсор мощности (Обязательно)
