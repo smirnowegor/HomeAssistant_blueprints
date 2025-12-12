@@ -178,50 +178,69 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
     <summary><b>Подробное описание</b></summary>
     <strong>Version: 2.1</strong><br><br>
 
-<strong>Основное что делает блупринт: Управление светом на основе датчиков движения, открытия двери и таймера / Main things Blueprint does: Controls lights based on motion sensors, door sensor and a timer</strong><br>
-Универсальная автоматизация для управления светом в комнате/коридоре: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и по завершении таймера выключает свет. Поддерживает глобальные условия (например — только ночью или только когда кто-то дома) и выполняет доп. действия после завершения таймера (напр. уведомления, сценарии). / Universal automation for lighting: turns lights on when motion or door open detected, starts a timer after motion stops and turns lights off when the timer finishes. Supports global conditions (e.g. only at night or only when someone is home) and additional actions after timer finish (e.g. notifications, scripts).
+<strong>Основное что делает блупринт:</strong><br>
+Универсальная автоматизация для управления светом в комнате/коридоре: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и по завершении таймера выключает свет. Поддерживает глобальные условия (например — только ночью или только когда кто-то дома) и выполняет дополнительные действия после завершения таймера (например — уведомления, сценарии). Некоторые примеры: коридор, гардеробная, ванная, крыльцо.<br><br>
 
 <details>
-<summary>Еще мои блупринты / More blueprints</summary>
+<summary>Еще мои блупринты</summary>
 <ul>
   <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
 </ul>
 </details>
 
 <details>
-<summary>💡 Главная идея / Main idea</summary>
-<p>Этот шаблон удобен тем, что объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута и доп. действий. / This blueprint unifies multiple trigger sources and gives flexible timeout and post-timer actions.</p>
+<summary>💡 Главная идея</summary>
+<p>Шаблон объединяет несколько источников триггеров (движение, дверь) и даёт гибкие настройки тайм-аута и пост-действий. Удобен как базовый шаблон для большинства мест дома.</p>
 <ol>
-  <li><strong>Проще управлять светом</strong> — единый шаблон для коридора, ванной, прихожей. / Single template for hall, bathroom, entryway.</li>
-  <li><strong>Гибкость</strong> — таймер хранится в input_number, можно быстро менять длительность. / Flexibility — timer duration kept in an input_number for quick changes.</li>
-  <li><strong>Интеграция</strong> — можно выполнить любые действия после выключения (уведомления, сценарии). / Integration — run arbitrary actions after lights off (notifications, scripts).</li>
+  <li><strong>Универсальность</strong> — подходит для коридора, прихожей, ванной.</li>
+  <li><strong>Гибкость</strong> — меняем длительность через input_number, можно добавить условия.</li>
+  <li><strong>Интеграция</strong> — выполняет любые actions после выключения света.</li>
 </ol>
 </details>
 
 <details>
-<summary>⚙️ Как это работает / How it works</summary>
+<summary>⚙️ Как это работает (кратко)</summary>
 <ol>
-  <li><strong>Старт / Start:</strong> Датчик движения в положении "on" или датчик двери открылся → включаем свет и отменяем таймер. / Motion sensor → on or door opened → turn lights on and cancel timer.</li>
-  <li><strong>Процесс / Process:</strong> При отсутствии движения запускается выбранный timer.* с длительностью из указанного input_number (в минутах). / When motion goes off, start selected timer.* with duration from input_number (minutes).</li>
-  <li><strong>Финиш / Finish:</strong> Когда таймер завершился — выключаем свет и выполняем дополнительные действия (если заданы). / When timer finishes → turn lights off and run additional actions (if provided).</li>
-  <li><strong>Глобальные условия / Global conditions:</strong> Если заданы — должны быть истинны для выполнения любой последовательности (например: только ночью). / If provided, must be true for automations to run (e.g., only at night).</li>
+  <li><strong>Старт:</strong> любой датчик движения → включаем свет и отменяем таймер.</li>
+  <li><strong>Остановка движения:</strong> запускаем выбранный timer.* с длительностью из input_number (в минутах).</li>
+  <li><strong>Открытие двери:</strong> включает свет и запускает таймер (если задан датчик двери).</li>
+  <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. actions (если заданы).</li>
+  <li><strong>Глобальные условия:</strong> если заданы, должны быть истинны для выполнения автоматики.</li>
 </ol>
-</details>
-
-<details>
-<summary>⚠️ Настройки (Helpers) / Requirements (Helpers)</summary>
-<ul>
-  <li><code>input_number</code> — хранит длительность таймера в минутах.</li>
-  <li><code>timer.*</code> — выбранный таймер, который будет стартовать/останавливаться.</li>
-  <li>Опционально: <code>binary_sensor</code> двери — для включения света при открытии.</li>
-  <li>Опционально: Дополнительные actions (скрипты/уведомления) — выполняются после завершения таймера.</li>
-</ul>
 </details>
 
 <hr>
 
-<strong>Universal light control: Motion, Door & Timer</strong><br>
-Simple and flexible automation: turn on lights by motion or door, start timer on motion off, turn off when timer finishes; supports global conditions and post-timer actions.
+<strong>What the blueprint does:</strong><br>
+Universal automation for lighting in rooms/hallways: turns lights on on motion or door open, starts a timer on motion off and turns lights off when the timer finishes. Supports global conditions (e.g. only at night or when someone is home) and runs additional actions after the timer finishes (notifications, scripts). Use cases: hallway, closet, bathroom, porch.<br><br>
+
+<details>
+<summary>More blueprints</summary>
+<ul>
+  <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
+</ul>
+</details>
+
+<details>
+<summary>💡 Main idea (Click to expand)</summary>
+<p>This blueprint combines multiple trigger sources (motion, door) and gives a flexible timeout and post-timer actions. Works as a base template for most household locations.</p>
+<ol>
+  <li><strong>Versatility</strong> — suitable for hallway, entryway, bathroom.</li>
+  <li><strong>Flexibility</strong> — change timer duration via input_number, add conditions.</li>
+  <li><strong>Integration</strong> — run arbitrary actions after lights off.</li>
+</ol>
+</details>
+
+<details>
+<summary>⚙️ How it works (short)</summary>
+<ol>
+  <li><strong>Start:</strong> any motion sensor → turn lights on and cancel timer.</li>
+  <li><strong>Motion off:</strong> start chosen timer.* using duration from input_number (minutes).</li>
+  <li><strong>Door open:</strong> turn lights on and start timer (if door sensor provided).</li>
+  <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions (if provided).</li>
+  <li><strong>Global conditions:</strong> if provided, must be true for the automation to run.</li>
+</ol>
+</details>
 
   </details>
   
@@ -425,50 +444,69 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
     <summary><b>Detailed Description</b></summary>
     <strong>Version: 2.1</strong><br><br>
 
-<strong>Основное что делает блупринт: Управление светом на основе датчиков движения, открытия двери и таймера / Main things Blueprint does: Controls lights based on motion sensors, door sensor and a timer</strong><br>
-Универсальная автоматизация для управления светом в комнате/коридоре: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и по завершении таймера выключает свет. Поддерживает глобальные условия (например — только ночью или только когда кто-то дома) и выполняет доп. действия после завершения таймера (напр. уведомления, сценарии). / Universal automation for lighting: turns lights on when motion or door open detected, starts a timer after motion stops and turns lights off when the timer finishes. Supports global conditions (e.g. only at night or only when someone is home) and additional actions after timer finish (e.g. notifications, scripts).
+<strong>Основное что делает блупринт:</strong><br>
+Универсальная автоматизация для управления светом в комнате/коридоре: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и по завершении таймера выключает свет. Поддерживает глобальные условия (например — только ночью или только когда кто-то дома) и выполняет дополнительные действия после завершения таймера (например — уведомления, сценарии). Некоторые примеры: коридор, гардеробная, ванная, крыльцо.<br><br>
 
 <details>
-<summary>Еще мои блупринты / More blueprints</summary>
+<summary>Еще мои блупринты</summary>
 <ul>
   <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
 </ul>
 </details>
 
 <details>
-<summary>💡 Главная идея / Main idea</summary>
-<p>Этот шаблон удобен тем, что объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута и доп. действий. / This blueprint unifies multiple trigger sources and gives flexible timeout and post-timer actions.</p>
+<summary>💡 Главная идея</summary>
+<p>Шаблон объединяет несколько источников триггеров (движение, дверь) и даёт гибкие настройки тайм-аута и пост-действий. Удобен как базовый шаблон для большинства мест дома.</p>
 <ol>
-  <li><strong>Проще управлять светом</strong> — единый шаблон для коридора, ванной, прихожей. / Single template for hall, bathroom, entryway.</li>
-  <li><strong>Гибкость</strong> — таймер хранится в input_number, можно быстро менять длительность. / Flexibility — timer duration kept in an input_number for quick changes.</li>
-  <li><strong>Интеграция</strong> — можно выполнить любые действия после выключения (уведомления, сценарии). / Integration — run arbitrary actions after lights off (notifications, scripts).</li>
+  <li><strong>Универсальность</strong> — подходит для коридора, прихожей, ванной.</li>
+  <li><strong>Гибкость</strong> — меняем длительность через input_number, можно добавить условия.</li>
+  <li><strong>Интеграция</strong> — выполняет любые actions после выключения света.</li>
 </ol>
 </details>
 
 <details>
-<summary>⚙️ Как это работает / How it works</summary>
+<summary>⚙️ Как это работает (кратко)</summary>
 <ol>
-  <li><strong>Старт / Start:</strong> Датчик движения в положении "on" или датчик двери открылся → включаем свет и отменяем таймер. / Motion sensor → on or door opened → turn lights on and cancel timer.</li>
-  <li><strong>Процесс / Process:</strong> При отсутствии движения запускается выбранный timer.* с длительностью из указанного input_number (в минутах). / When motion goes off, start selected timer.* with duration from input_number (minutes).</li>
-  <li><strong>Финиш / Finish:</strong> Когда таймер завершился — выключаем свет и выполняем дополнительные действия (если заданы). / When timer finishes → turn lights off and run additional actions (if provided).</li>
-  <li><strong>Глобальные условия / Global conditions:</strong> Если заданы — должны быть истинны для выполнения любой последовательности (например: только ночью). / If provided, must be true for automations to run (e.g., only at night).</li>
+  <li><strong>Старт:</strong> любой датчик движения → включаем свет и отменяем таймер.</li>
+  <li><strong>Остановка движения:</strong> запускаем выбранный timer.* с длительностью из input_number (в минутах).</li>
+  <li><strong>Открытие двери:</strong> включает свет и запускает таймер (если задан датчик двери).</li>
+  <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. actions (если заданы).</li>
+  <li><strong>Глобальные условия:</strong> если заданы, должны быть истинны для выполнения автоматики.</li>
 </ol>
-</details>
-
-<details>
-<summary>⚠️ Настройки (Helpers) / Requirements (Helpers)</summary>
-<ul>
-  <li><code>input_number</code> — хранит длительность таймера в минутах.</li>
-  <li><code>timer.*</code> — выбранный таймер, который будет стартовать/останавливаться.</li>
-  <li>Опционально: <code>binary_sensor</code> двери — для включения света при открытии.</li>
-  <li>Опционально: Дополнительные actions (скрипты/уведомления) — выполняются после завершения таймера.</li>
-</ul>
 </details>
 
 <hr>
 
-<strong>Universal light control: Motion, Door & Timer</strong><br>
-Simple and flexible automation: turn on lights by motion or door, start timer on motion off, turn off when timer finishes; supports global conditions and post-timer actions.
+<strong>What the blueprint does:</strong><br>
+Universal automation for lighting in rooms/hallways: turns lights on on motion or door open, starts a timer on motion off and turns lights off when the timer finishes. Supports global conditions (e.g. only at night or when someone is home) and runs additional actions after the timer finishes (notifications, scripts). Use cases: hallway, closet, bathroom, porch.<br><br>
+
+<details>
+<summary>More blueprints</summary>
+<ul>
+  <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
+</ul>
+</details>
+
+<details>
+<summary>💡 Main idea (Click to expand)</summary>
+<p>This blueprint combines multiple trigger sources (motion, door) and gives a flexible timeout and post-timer actions. Works as a base template for most household locations.</p>
+<ol>
+  <li><strong>Versatility</strong> — suitable for hallway, entryway, bathroom.</li>
+  <li><strong>Flexibility</strong> — change timer duration via input_number, add conditions.</li>
+  <li><strong>Integration</strong> — run arbitrary actions after lights off.</li>
+</ol>
+</details>
+
+<details>
+<summary>⚙️ How it works (short)</summary>
+<ol>
+  <li><strong>Start:</strong> any motion sensor → turn lights on and cancel timer.</li>
+  <li><strong>Motion off:</strong> start chosen timer.* using duration from input_number (minutes).</li>
+  <li><strong>Door open:</strong> turn lights on and start timer (if door sensor provided).</li>
+  <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions (if provided).</li>
+  <li><strong>Global conditions:</strong> if provided, must be true for the automation to run.</li>
+</ol>
+</details>
 
   </details>
   
