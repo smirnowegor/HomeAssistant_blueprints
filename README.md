@@ -156,7 +156,9 @@ If you find this blueprint useful, you can support the author through various me
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
+    Version: 0.1
+<details>    
+**Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
 
 Эта логика решает главную проблему: она не ждет фиксированного порога влажности (например, 70%), а постоянно сравнивает влажность в помещении с **динамической нормой** (эталоном/медианой дома). 
 
@@ -175,12 +177,13 @@ If you find this blueprint useful, you can support the author through various me
 6.  **Пост-Действия (v2):** Выполнение дополнительных команд после выключения (например, выключить свет, отправить уведомление).
 
 </details>
-
+<details>    
   **Контакты автора:**
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
 - [Teletype](https://teletype.in/@godisblind)
+</details>
 
   </details>
   
@@ -354,7 +357,9 @@ If you find this blueprint useful, you can support the author through various me
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
+    Version: 0.1
+<details>    
+**Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
 
 Эта логика решает главную проблему: она не ждет фиксированного порога влажности (например, 70%), а постоянно сравнивает влажность в помещении с **динамической нормой** (эталоном/медианой дома). 
 
@@ -373,12 +378,13 @@ If you find this blueprint useful, you can support the author through various me
 6.  **Пост-Действия (v2):** Выполнение дополнительных команд после выключения (например, выключить свет, отправить уведомление).
 
 </details>
-
+<details>    
   **Контакты автора:**
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
 - [Teletype](https://teletype.in/@godisblind)
+</details>
 
   </details>
   
