@@ -163,42 +163,6 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 </details>
 <hr>
 
-
-### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
-<details>
-  <summary><b>📖 Развернуть описание и установку</b></summary>
-  
-  **Категория:** automation | [📂 Исходный код](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
-
-  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
-
-  ---
-
-  <details>
-    <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.2</strong><br><br>
-
-<strong>Универсальная автоматизация для управления светом</strong><br>
-- Включает свет при движении или открытии двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.<br><br>
-
-## Как работает / How it works
-- Включает свет при движении. / Turns lights on when motion is detected.
-- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`. / When motion stops, starts the selected `timer.*` with duration from `input_number`.
-- По завершении таймера выключает свет и запускает дополнительные действия (если заданы). / When timer finishes, turns lights off and runs additional actions (if provided).
-- Опционально: при открытии двери — включение света и запуск таймера. / Optionally: opening a door turns lights on and starts the timer.
-- Можно задать глобальные условия (например: только ночью или только если кто-то дома). / You can set global conditions (e.g., only at night or only when someone is home).
-
-**Контакты автора / Author contacts:**
-- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
-- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
-- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
-
-  </details>
-  
-</details>
-<hr>
-
 <!-- END_BLUEPRINTS -->
 
 ## ☕ Поддержка
@@ -375,42 +339,6 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen profile</a></li>
 </ul>
 </details>
-
-  </details>
-  
-</details>
-<hr>
-
-
-### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
-<details>
-  <summary><b>📖 Expand Description and Installation</b></summary>
-  
-  **Category:** automation | [📂 Source Code](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
-
-  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
-
-  ---
-
-  <details>
-    <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.2</strong><br><br>
-
-<strong>Универсальная автоматизация для управления светом</strong><br>
-- Включает свет при движении или открытии двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.<br><br>
-
-## Как работает / How it works
-- Включает свет при движении. / Turns lights on when motion is detected.
-- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`. / When motion stops, starts the selected `timer.*` with duration from `input_number`.
-- По завершении таймера выключает свет и запускает дополнительные действия (если заданы). / When timer finishes, turns lights off and runs additional actions (if provided).
-- Опционально: при открытии двери — включение света и запуск таймера. / Optionally: opening a door turns lights on and starts the timer.
-- Можно задать глобальные условия (например: только ночью или только если кто-то дома). / You can set global conditions (e.g., only at night or only when someone is home).
-
-**Контакты автора / Author contacts:**
-- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
-- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
-- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
 
   </details>
   
