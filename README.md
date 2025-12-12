@@ -180,11 +180,10 @@ If you find this blueprint useful, you can support the author through various me
 </details>
 
 <details>
-<summary>💬 Контакты автора 👈</summary>
-- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
-- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
-- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
+<summary>💬 Contacts 👈</summary>
+* [Telegram channel (RU with auto-translate)](https://t.me/u2smart4home)
+* [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+* [Dzen Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 </details>
 
 ---
@@ -213,11 +212,10 @@ This logic solves the main problem: it does not wait for a fixed humidity thresh
 </details>
 
 <details>
-<summary>💬 Author's Contacts 👈</summary>
-- [Telegram channel about home automation](https://t.me/u2smart4home)
-- [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
-- [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
+<summary>💬 Contacts 👈</summary>
+* [Telegram channel (RU with auto-translate)](https://t.me/u2smart4home)
+* [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+* [Dzen Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 </details>
 
   </details>
@@ -416,11 +414,10 @@ If you find this blueprint useful, you can support the author through various me
 </details>
 
 <details>
-<summary>💬 Контакты автора 👈</summary>
-- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
-- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
-- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
+<summary>💬 Contacts 👈</summary>
+* [Telegram channel (RU with auto-translate)](https://t.me/u2smart4home)
+* [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+* [Dzen Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 </details>
 
 ---
@@ -449,11 +446,10 @@ This logic solves the main problem: it does not wait for a fixed humidity thresh
 </details>
 
 <details>
-<summary>💬 Author's Contacts 👈</summary>
-- [Telegram channel about home automation](https://t.me/u2smart4home)
-- [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
-- [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
-- [Teletype](https://teletype.in/@godisblind)
+<summary>💬 Contacts 👈</summary>
+* [Telegram channel (RU with auto-translate)](https://t.me/u2smart4home)
+* [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+* [Dzen Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 </details>
 
   </details>
