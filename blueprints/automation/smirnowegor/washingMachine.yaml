@@ -1,0 +1,827 @@
+blueprint:
+  name: 'Стиральная машина: уведомления и напоминания (универсальный Blueprint)'
+  description: |
+    <strong>Version: 2.1</strong><br><br>
+
+    <strong>Умная Стирка: Уведомления, Энергия и Telegram</strong><br>
+    Универсальное решение: уведомляет о старте/финише, считает стоимость, напоминает о белье.
+
+    <details>
+    <summary>Еще мои блупринты</summary>
+    <ul>
+      <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
+    <p>Этот шаблон решает три основные проблемы:</p>
+    <ol>
+      <li><strong>Забытое белье</strong> — напоминания не дадут вещам «задохнуться».</li>
+      <li><strong>Контроль расходов</strong> — узнаёте точную стоимость конкретной стирки с учётом дневных/ночных тарифов.</li>
+      <li><strong>Гибкость</strong> — днём голосовые уведомления, ночью — тихие уведомления в Telegram.</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚙️ Как это работает (Нажмите, чтобы раскрыть) 👈</summary>
+    <p>Алгоритм:</p>
+    <ol>
+      <li><strong>Старт:</strong> если мощность розетки &gt; порога (например 10 Вт) указанное время — стирка началась.</li>
+      <li><strong>Процесс:</strong> опционально отправляется сообщение «Стирка началась».</li>
+      <li><strong>Финиш:</strong> если мощность ниже порога (например 5 Вт) указанное время — стирка закончена.</li>
+      <li><strong>Расчёт:</strong> разница utility meter × дневной/ночной тариф.</li>
+      <li><strong>Напоминания:</strong> Telegram-кнопки «Напомнить через...», плюс авто-напоминания.</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚠️ Настройки (Helpers) 👈</summary>
+    <p>Для работы создайте или укажите существующие helpers:</p>
+    <ul>
+      <li><code>input_text.stirka_end_time</code> — хранит время завершения.</li>
+      <li><code>input_number.stirka_start_energy</code> — энергия в момент старта.</li>
+      <li><code>input_number.dnevnoi_tarif</code> и <code>input_number.nochnoy_tarif</code> — тарифы.</li>
+      <li><strong>Utility Meter</strong> — сенсор W → kWh (обязателен для расчёта).</li>
+      <li><strong>Telegram Bot</strong> — должен быть настроен.</li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💰 Поддержать автора 👈</summary>
+    <ul>
+      <li>Дзен: <a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Поддержать на Дзен</a></li>
+      <li>Donat: <a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
+      <li>Telegram: <a href="https://t.me/tribute/app?startapp=dvHM">Связаться через Telegram</a></li>
+      <li>Криптокошелек (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💬 Контакты 👈</summary>
+    <ul>
+      <li><a href="https://t.me/u2smart4home">Telegram канал</a></li>
+      <li><a href="https://www.youtube.com/@udobni_dom">YouTube: Удобный дом</a></li>
+      <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen Profile</a></li>
+    </ul>
+    </details>
+
+    <hr>
+
+    <strong>Smart Washing Machine: Notifications, Energy & Telegram</strong><br>
+    Universal solution: notifies about start/finish, calculates cost, reminds about laundry.
+
+    <details>
+    <summary>More blueprints</summary>
+    <ul>
+      <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💡 Main idea (Click to expand) 👈</summary>
+    <ol>
+      <li><strong>Forgotten laundry</strong> — reminders prevent musty clothes.</li>
+      <li><strong>Cost control</strong> — precise cycle cost with day/night tariffs.</li>
+      <li><strong>Flexibility</strong> — voice alerts during day, silent Telegram at night.</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚙️ How it works (Click to expand) 👈</summary>
+    <ol>
+      <li><strong>Start:</strong> Power &gt; threshold (e.g. 10W) → cycle started.</li>
+      <li><strong>Process:</strong> Optional “Wash started” message.</li>
+      <li><strong>Finish:</strong> Power &lt; threshold (e.g. 5W) → cycle finished.</li>
+      <li><strong>Calculation:</strong> utility meter delta × tariff.</li>
+      <li><strong>Reminders:</strong> Inline Telegram buttons + auto reminders.</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚠️ Requirements (Helpers) 👈</summary>
+    <ul>
+      <li><code>input_text.stirka_end_time</code> — finish time.</li>
+      <li><code>input_number.stirka_start_energy</code> — energy at start.</li>
+      <li><code>input_number.day_tariff</code> &amp; <code>input_number.night_tariff</code> — tariffs.</li>
+      <li><strong>Utility Meter</strong> — turning Watts → kWh.</li>
+      <li><strong>Telegram Bot</strong> — must be configured.</li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💰 Support the author 👈</summary>
+    <ul>
+      <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Support via Dzen</a></li>
+      <li><a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
+      <li><a href="https://t.me/tribute/app?startapp=dvHM">Telegram</a></li>
+      <li>Crypto (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💬 Contacts 👈</summary>
+    <ul>
+      <li><a href="https://t.me/u2smart4home">Telegram channel</a></li>
+      <li><a href="https://www.youtube.com/@udobni_dom">YouTube channel</a></li>
+      <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen profile</a></li>
+    </ul>
+    </details>
+
+
+  domain: automation
+  input:
+    power_sensor:
+      name: Сенсор мощности (Обязательно) \ Power Sensor (Required)
+      description: "🔌 Сенсор, измеряющий текущую мощность стиральной машины в ватах (Вт). Это единственное обязательное поле. Рекомендуется использовать сенсор реальной мощности. \ 🔌 Sensor measuring the current power of the washing machine in watts (W). This is the only required field. Use a sensor that shows actual power consumption."
+      selector:
+        entity:
+          domain:
+          - sensor
+          multiple: false
+          reorder: false
+    start_power:
+      name: Порог включения (Вт) \ Start Power Threshold (W)
+      description: "⬆️ Мощность, выше которой считается, что стирка началась (рекомендуется 10 Вт). Для точного определения начала. \ ⬆️ Power above which the wash cycle is considered started (recommended 10 W). For accurate start detection."
+      default: 10
+      selector:
+        number:
+          min: 1.0
+          max: 5000.0
+          unit_of_measurement: W
+          step: 1.0
+          mode: slider
+    end_power:
+      name: Порог завершения (Вт) \ End Power Threshold (W)
+      description: "⬇️ Мощность, ниже которой считается, что стирка завершилась (рекомендуется 5 Вт). Для точного определения завершения. \ ⬇️ Power below which the wash cycle is considered finished (recommended 5 W). For accurate end detection."
+      default: 5
+      selector:
+        number:
+          min: 0.0
+          max: 100.0
+          unit_of_measurement: W
+          step: 1.0
+          mode: slider
+    delay_start_time:
+      name: Задержка начала стирки (мин)
+      description: ⏳ Время, в течение которого мощность должна превышать порог для подтверждения старта (например, 3 минуты). \ ⏳ Time during which power must exceed threshold to confirm start (e.g., 3 minutes).
+      default: 3
+      selector:
+        number:
+          min: 0.0
+          max: 100.0
+          unit_of_measurement: minutes
+          step: 1.0
+          mode: slider
+    wait_for_trigger_time:
+      name: Задержка завершения стирки (мин) \ End Delay (min)
+      description: ⏱️ Время, в течение которого мощность должна быть ниже порога для подтверждения завершения (например, 5 минут). \ ⏱️ Time during which power must be below threshold to confirm end (e.g., 5 minutes).
+      default: 5
+      selector:
+        number:
+          min: 0.0
+          max: 100.0
+          unit_of_measurement: minutes
+          step: 1.0
+          mode: slider
+    notify_service:
+      name: Push-сервис (опционально) \ Push Service (Optional)
+      description: "📲 Имя push-сервиса (например, notify.mobile_app_egor_super). Оставьте пустым, если не используете. Для голосовых push-уведомлений. \ 📲 Push service name (e.g., notify.mobile_app_egor_super). Leave blank if not used. For voice push notifications."
+      default: ''
+    tts_media_players:
+      name: Медиаплееры для TTS (опционально) \ TTS Media Players (Optional)
+      description: "🔊 Список медиаплееров для озвучивания уведомлений. Выберите media_player устройства. \ 🔊 List of media players for voicing notifications. Select media_player entities.."
+      selector:
+        entity:
+          domain:
+          - media_player
+          multiple: true
+          reorder: false
+      default: []
+    end_time_storage_entity:
+      name: Сущность для времени завершения (опционально) \ End Time Storage Entity (Optional)
+      description: "💾 input_text для хранения времени завершения стирки (для напоминаний). Если не указано, время выводится по запросу. \ 💾 input_text to store wash end time (for reminders). If not specified, time is shown on request."
+      selector:
+        entity:
+          domain:
+          - input_text
+          multiple: false
+          reorder: false
+      default:
+    tts_service:
+      name: Сервис TTS (опционально) \ TTS Service (Optional)
+      description: "🤖 Выберите TTS-сервис для озвучивания (например, tts.google_en_com). \ 🤖 Select TTS service for voicing (e.g., tts.google_en_com)."
+      default: {}
+      selector:
+        target:
+          entity:
+          - domain:
+            - tts
+    start_time:
+      name: Время начала уведомлений (ЧЧ:ММ:СС) \ Notifications Start Time (HH:MM:SS)
+      description: ⏰ После этого времени отправляются голосовые уведомления (Telegram всегда). \ ⏰ After this time, voice notifications are sent (Telegram always).
+      default: 08:00:00
+      selector:
+        text:
+          multiple: false
+          multiline: false
+    end_time:
+      name: Время окончания уведомлений (ЧЧ:ММ:СС) \ Notifications End Time (HH:MM:SS)
+      description: "🕰️ До этого времени отправляются голосовые уведомления (Telegram всегда). \ 🕰️ Before this time, voice notifications are sent (Telegram always)."
+      default: '23:55:00'
+      selector:
+        text:
+          multiple: false
+          multiline: false
+    start_notification_mode:
+      name: Режим уведомления при запуске \ Start Notification Mode
+      description: "Выберите способ уведомления о запуске. Опции: Только Telegram, Telegram + Speakers, и т.д. \ Select notification method for start. Options: Telegram Only, Telegram + Speakers, etc."
+      default: telegram_only
+      selector:
+        select:
+          options:
+          - value: telegram_only
+            label: Только в телеграм \ Telegram Only
+          - value: telegram_speaker
+            label: Телеграм + Колонки \ Telegram + Speakers
+          - value: telegram_push
+            label: Телеграм + Push \ Telegram + Push
+          - value: speaker_only
+            label: Только колонки \ Speakers Only
+          - value: push_only
+            label: Только Push \ Push Only
+          - value: speaker_push
+            label: Колонки + Push \ Speakers + Push
+          - value: telegram_speaker_push
+            label: Телеграм + Колонки + Push \ Telegram + Speakers + Push
+          - value: none
+            label: Не сообщать о начале стирки \ No Start Notification
+          multiple: false
+          custom_value: false
+          sort: false
+    end_notification_mode:
+      name: Режим уведомления при завершении \ End Notification Mode
+      description: "Выберите способ уведомления о завершении. Важно: Без Telegram напоминания не работают. \ Select notification method for end. Important: Without Telegram, reminders won''t work."
+      default: telegram_only
+      selector:
+        select:
+          options:
+          - value: telegram_only
+            label: Только в телеграм \ Telegram Only
+          - value: telegram_speaker
+            label: Телеграм + Колонки \ Telegram + Speakers
+          - value: telegram_push
+            label: Телеграм + Push \ Telegram + Push
+          - value: speaker_only
+            label: Только колонки \ Speakers Only
+          - value: push_only
+            label: Только Push \ Push Only
+          - value: speaker_push
+            label: Колонки + Push \ Speakers + Push
+          - value: telegram_speaker_push
+            label: Телеграм + Колонки + Push \ Telegram + Speakers + Push
+          - value: none
+            label: Не сообщать о завершении стирки \ No End Notification
+          multiple: false
+          custom_value: false
+          sort: false
+    notification_texts:
+      name: "Тексты уведомлений 📢 \ Notification Texts 📢"
+      description: "Настройте тексты для push, TTS и Telegram. Push озвучиваются голосом. \ Customize texts for push, TTS, and Telegram. Push are voiced."
+      collapsed: true
+      input:
+        tts_start_text:
+          name: Текст TTS при запуске \ TTS Start Text
+          description: 'Что произнесет колонка при запуске (e.g., ''Стирка началась''). \ What the speaker says at start (e.g., ''Wash started'').'
+          default: Стирка началась.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        push_start_text:
+          name: Текст push при запуске \ Push Start Text
+          description: Push-сообщение при запуске, озвучиваемое голосом. \ Push message at start, voiced.
+          default: Стирка началась.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        telegram_start:
+          name: Текст Telegram при запуске \ Telegram Start Text
+          description: Telegram-сообщение при запуске. \ Telegram message at start.
+          default: "🧺🚀 Стирка началась!"
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        tts_end_text:
+          name: Текст TTS при завершении \ TTS End Text
+          description: 'Что произнесет колонка при завершении. \ What the speaker says at end.'
+          default: Стирка завершена.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        push_end_text:
+          name: Текст push при завершении \ Push End Text
+          description: 'Push-сообщение при завершении, озвучиваемое. \ Push message at end, voiced.'
+          default: Стирка завершена.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        telegram_finish:
+          name: Текст Telegram при завершении \ Telegram End Text
+          description: Telegram-сообщение при завершении. \ Telegram message at end.
+          default: "✅🧺 Стирка завершена!"
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        telegram_reminder:
+          name: Напоминание в Telegram \ Telegram Reminder
+          description: Текст напоминания в Telegram. \ Reminder text in Telegram.
+          default: "⏰🧺 Ваше белье готово!"
+          selector:
+            text:
+              multiple: false
+              multiline: false
+    reminder_settings:
+      name: Напоминания ⏰ (дополнительно) \ Reminders ⏰ (Optional)
+      description: Настройка задержек и текстов напоминаний. Кнопки в Telegram. \ Setup delays and reminder texts. Telegram buttons.
+      collapsed: true
+      input:
+        reminder_notification_mode:
+          name: Режим напоминаний \ Reminder Mode
+          description: "Способ отправки напоминаний. \ Reminder notification method"
+          default: telegram_only
+          selector:
+            select:
+              options:
+              - value: telegram_only
+                label: Только в телеграм \ Telegram Only
+              - value: telegram_speaker
+                label: Телеграм + Колонки \ Telegram + Speakers
+              - value: telegram_push
+                label: Телеграм + Push \ Telegram + Push
+              - value: telegram_speaker_push
+                label: Телеграм + Колонки + Push \ Telegram + Speakers + Push
+              - value: none
+                label: Не отправлять напоминания \ No Reminders
+              multiple: false
+              custom_value: false
+              sort: false
+        speaker_reminder:
+          name: Текст напоминания в колонку \ Speaker Reminder Text
+          description: Текст для озвучивания напоминания. \ Text for speaker reminder.
+          default: Белье готово.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        push_reminder:
+          name: Текст напоминания в push \ Push Reminder Text
+          description: Текст push-напоминания. \ Push reminder text.
+          default: Белье постирано.
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        delay_10_min:
+          name: Задержка 1я кнопка \ 1st Button Delay
+          description: Время задержки для первого напоминания. \ Delay time for first reminder.
+          default: 10
+          selector:
+            number:
+              min: 1.0
+              max: 180.0
+              unit_of_measurement: minutes
+              step: 1.0
+              mode: slider
+        delay_30_min:
+          name: Задержка 2я кнопка \ 2nd Button Delay
+          description: Время задержки для второго напоминания. \ Delay time for second reminder.
+          default: 30
+          selector:
+            number:
+              min: 1.0
+              max: 180.0
+              unit_of_measurement: minutes
+              step: 1.0
+              mode: slider
+        delay_60_min:
+          name: Задержка 3я кнопка \ 3rd Button Delay
+          description: Время задержки для третьего напоминания. \ Delay time for third reminder.
+          default: 60
+          selector:
+            number:
+              min: 1.0
+              max: 180.0
+              unit_of_measurement: minutes
+              step: 1.0
+              mode: slider
+    energy_tracking_settings:
+      name: "Энергия и тарифы 💡💰 (опционально) \ Energy & Tariffs 💡💰 (Optional)"
+      description: Параметры для расчета энергии и стоимости. \ Settings for energy consumption and cost calculation.
+      collapsed: true
+      input:
+        energy_sensor:
+          name: Сенсор энергии (кВт·ч) \ Energy Sensor (kWh)
+          description: ⚡ Сенсор накопленного потребления энергии. \ ⚡ Sensor for accumulated energy consumption.
+          selector:
+            entity:
+              domain:
+              - sensor
+              multiple: false
+              reorder: false
+          default:
+        day_tariff:
+          name: Дневной тариф (кВт·ч) \ Day Tariff (kWh)
+          description: ☀️ input_number с дневным тарифом. \ ☀️ input_number for day tariff.
+          selector:
+            entity:
+              domain:
+              - input_number
+              multiple: false
+              reorder: false
+          default:
+        night_tariff:
+          name: Ночной тариф (кВт·ч) \ Night Tariff (kWh)
+          description: "🌙 input_number с ночным тарифом. \ 🌙 input_number for night tariff."
+          selector:
+            entity:
+              domain:
+              - input_number
+              multiple: false
+              reorder: false
+          default:
+        tariff_day_start_time:
+          name: Время начала дневного тарифа (ЧЧ:ММ) \ Day Tariff Start Time (HH:MM)
+          description: ☀️ Время начала дневного тарифа. \ ☀️ Day tariff start time.
+          default: 07:00
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        tariff_night_start_time:
+          name: Время начала ночного тарифа (ЧЧ:ММ) \ Night Tariff Start Time (HH:MM)
+          description: "🌙 Время начала ночного тарифа. \ 🌙 Night tariff start time."
+          default: '23:00'
+          selector:
+            text:
+              multiple: false
+              multiline: false
+        start_energy_storage_entity:
+          name: Сущность для стартового значения энергии (опционально) \ Start Energy Storage Entity (Optional)
+          description: "💾 input_number для хранения энергии в начале стирки. \ 💾 input_number to store energy at wash start."
+          selector:
+            entity:
+              domain:
+              - input_number
+              multiple: false
+              reorder: false
+          default:
+  source_url: https://gist.githubusercontent.com/smirnowegor/cbb381a486848eada337a356d2823fa4/raw/5ceb876ec0ffd70f6500e7ed0ea2555f5c63dd0b/washingTEST
+mode: single
+variables:
+  input_power_sensor: !input power_sensor
+  tts_start_text: !input tts_start_text
+  push_start_text: !input push_start_text
+  delay_10_min: !input delay_10_min
+  delay_30_min: !input delay_30_min
+  delay_60_min: !input delay_60_min
+  tts_end_text: !input tts_end_text
+  push_end_text: !input push_end_text
+  telegram_reminder: !input telegram_reminder
+  speaker_reminder: !input speaker_reminder
+  push_reminder: !input push_reminder
+  delay_start_time: !input delay_start_time
+  wait_for_trigger_time: !input wait_for_trigger_time
+  start_time: !input start_time
+  end_time: !input end_time
+  start_notification_mode: !input start_notification_mode
+  valid_notify_service: !input notify_service
+  telegram_start: !input telegram_start
+  telegram_finish: !input telegram_finish
+  input_end_time_storage_entity: !input end_time_storage_entity
+  input_start_energy_storage_entity: !input start_energy_storage_entity
+  day_tariff_entity: !input day_tariff
+  night_tariff_entity: !input night_tariff
+  tariff_day_start_time: !input tariff_day_start_time
+  tariff_night_start_time: !input tariff_night_start_time
+  energy_sensor: !input energy_sensor
+  end_notification_mode: !input end_notification_mode
+  reminder_notification_mode: !input reminder_notification_mode
+trigger:
+- platform: numeric_state
+  entity_id: !input power_sensor
+  above: !input start_power
+  for:
+    minutes: !input delay_start_time
+- platform: event
+  event_type: telegram_callback
+condition: []
+action:
+- choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.platform == ''event'' }}'
+    sequence:
+    - alias: Обработка выбора кнопки напоминания и установка задержки
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ trigger.event.data.data == ''/reminder_10'' }}'
+        sequence:
+        - service: telegram_bot.answer_callback_query
+          data:
+            callback_query_id: '{{ trigger.event.data.id }}'
+            message: 'Нажал кнопку: Напомнить через {{ delay_10_min }} минут'
+            show_alert: false
+        - delay:
+            minutes: !input delay_10_min
+      - conditions:
+        - condition: template
+          value_template: '{{ trigger.event.data.data == ''/reminder_30'' }}'
+        sequence:
+        - service: telegram_bot.answer_callback_query
+          data:
+            callback_query_id: '{{ trigger.event.data.id }}'
+            message: 'Нажал кнопку: Напомнить через {{ delay_30_min }} минут'
+            show_alert: false
+        - delay:
+            minutes: !input delay_30_min
+      - conditions:
+        - condition: template
+          value_template: '{{ trigger.event.data.data == ''/reminder_60'' }}'
+        sequence:
+        - service: telegram_bot.answer_callback_query
+          data:
+            callback_query_id: '{{ trigger.event.data.id }}'
+            message: 'Нажал кнопку: Напомнить через {{ delay_60_min }} минут'
+            show_alert: false
+        - delay:
+            minutes: !input delay_60_min
+    - alias: Определение текста напоминания
+      variables:
+        reminder_message_text: "{% set end_time_str = '' %} {% if input_end_time_storage_entity
+          is not none and input_end_time_storage_entity != '' %}\n  {% set stored_time_entity_state
+          = states(input_end_time_storage_entity) %} \n  {% if stored_time_entity_state
+          is not none and stored_time_entity_state != 'unavailable' and stored_time_entity_state
+          != 'unknown' and stored_time_entity_state | is_number %}\n    {% set end_time_str
+          = ' (Завершилась в ' + stored_time_entity_state | float | timestamp_custom('%H:%M')
+          + ')' %} \n  {% endif %}\n{% endif %} {{ telegram_reminder }}{{ end_time_str
+          }} \n"
+    - alias: Отправка НАПОМИНАНИЯ в зависимости от режима
+      if:
+      - condition: template
+        value_template: '{{ reminder_notification_mode != ''none'' }}'
+      then:
+      - if:
+        - condition: template
+          value_template: '{{ ''telegram'' in reminder_notification_mode }}'
+        then:
+        - service: telegram_bot.send_message
+          data:
+            message: '{{ reminder_message_text }}'
+      - if:
+        - condition: template
+          value_template: '{{ ''speaker'' in reminder_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            sequence:
+            - repeat:
+                for_each: !input tts_media_players
+                sequence:
+                - service: tts.speak
+                  data:
+                    cache: true
+                    media_player_entity_id: '{{ repeat.item }}'
+                    message: !input speaker_reminder
+                  target: !input tts_service
+      - if:
+        - condition: template
+          value_template: '{{ ''push'' in reminder_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            - condition: template
+              value_template: '{{ valid_notify_service is not none and valid_notify_service
+                != '''' }}'
+            sequence:
+            - service: '{{ valid_notify_service }}'
+              data:
+                message: TTS
+                data:
+                  ttl: 0
+                  priority: high
+                  channel: alarm_strem_max
+                  tts_text: !input push_reminder
+                  title: ''
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.platform != ''event'' }}'
+    sequence:
+    - variables:
+        cycle_start_time: '{{ now().timestamp() }}'
+    - alias: Отправка уведомлений о СТАРТЕ
+      if:
+      - condition: template
+        value_template: '{{ start_notification_mode != ''none'' }}'
+      then:
+      - if:
+        - condition: template
+          value_template: '{{ ''telegram'' in start_notification_mode }}'
+        then:
+        - service: telegram_bot.send_message
+          data:
+            message: "{{ telegram_start }} (Запуск в {{ cycle_start_time | timestamp_custom('%H:%M')
+              }}) \n"
+      - if:
+        - condition: template
+          value_template: '{{ ''speaker'' in start_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            sequence:
+            - repeat:
+                for_each: !input tts_media_players
+                sequence:
+                - service: tts.speak
+                  data:
+                    cache: true
+                    media_player_entity_id: '{{ repeat.item }}'
+                    message: !input tts_start_text
+                  target: !input tts_service
+      - if:
+        - condition: template
+          value_template: '{{ ''push'' in start_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            - condition: template
+              value_template: '{{ valid_notify_service is not none and valid_notify_service
+                != '''' }}'
+            sequence:
+            - service: '{{ valid_notify_service }}'
+              data:
+                message: TTS
+                data:
+                  ttl: 0
+                  priority: high
+                  channel: alarm_strem_max
+                  tts_text: !input push_start_text
+                  title: ''
+    - delay:
+        seconds: 2
+    - alias: Сохранение стартового значения энергии
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ input_start_energy_storage_entity is not none and input_start_energy_storage_entity
+            != '''' }}'
+        sequence:
+        - service: input_number.set_value
+          target:
+            entity_id: '{{ input_start_energy_storage_entity }}'
+          data:
+            value: '{{ states(energy_sensor) | float(default=0) if energy_sensor is
+              not none else 0 }}'
+    - alias: Ожидание завершения стирки (падение мощности)
+      wait_for_trigger:
+      - platform: numeric_state
+        entity_id: !input power_sensor
+        below: !input end_power
+        for:
+          minutes: !input wait_for_trigger_time
+    - alias: Расчет потребленной энергии и стоимости
+      variables:
+        cycle_end_time: '{{ now().timestamp() }}'
+        end_datetime: '{{ now() }}'
+        energy_consumed: "{% if input_start_energy_storage_entity is not none and
+          states(input_start_energy_storage_entity) is not none %}\n  {% set start_energy
+          = states(input_start_energy_storage_entity) | float(default=0) %} \n{% else
+          %}\n  {% set start_energy = 0 %}\n{% endif %} {% set end_energy = states(energy_sensor)
+          | float(default=0) if energy_sensor is not none else 0 %}  {{ (end_energy
+          - start_energy) | round(2) }} \n"
+        end_hour: '{{ cycle_end_time | timestamp_custom(''%H'', true) | int }}'
+        end_min: '{{ cycle_end_time | timestamp_custom(''%M'', true) | int }}'
+        day_tariff_value: "{% if day_tariff_entity is not none and day_tariff_entity
+          != '' %} \n  {{ states(day_tariff_entity) | float(default=0) }} \n{% else
+          %}\n  0\n{% endif %}\n"
+        night_tariff_value: "{% if night_tariff_entity is not none and night_tariff_entity
+          != '' %} \n  {{ states(night_tariff_entity) | float(default=0) }} \n{% else
+          %}\n  0\n{% endif %}\n"
+        selected_tariff: "{% set tariff = none %}  {% set day_start_hour = 0 %} {%
+          set day_start_min = 0 %} {% if tariff_day_start_time is string and tariff_day_start_time
+          != '' %}\n  {% set day_start_parts = tariff_day_start_time.split(':') %}
+          \n  {% if day_start_parts | length >= 2 %} \n    {% set day_start_hour =
+          day_start_parts[0] | int(default=0) %} \n    {% set day_start_min = day_start_parts[1]
+          | int(default=0) %} \n  {% endif %}\n{% endif %} {% set night_start_hour
+          = 0 %} {% set night_start_min = 0 %} {% if tariff_night_start_time is string
+          and tariff_night_start_time != '' %} \n  {% set night_start_parts = tariff_night_start_time.split(':')
+          %}\n  {% if night_start_parts | length >= 2 %} \n    {% set night_start_hour
+          = night_start_parts[0] | int(default=0) %} \n    {% set night_start_min
+          = night_start_parts[1] | int(default=0) %} \n  {% endif %}\n{% endif %}
+          {# Check for night tariff #} {% if (end_hour > night_start_hour or (end_hour
+          == night_start_hour and end_min >= night_start_min)) or (end_hour < day_start_hour
+          or (end_hour == day_start_hour and end_min < day_start_min)) %} \n  {% if
+          night_tariff_value is not none %}\n    {% set tariff = night_tariff_value
+          %}\n  {% endif %}\n{# Check for day tariff #} {% elif day_tariff_value is
+          not none %} \n  {% set tariff = day_tariff_value %}\n{% endif %} {{ tariff
+          }}\n"
+        cycle_cost: "{% set energy = energy_consumed | float(default=0) %}  {% set
+          tariff = selected_tariff | float(default=0) if selected_tariff is not none
+          else none %}  {% if energy > 0 and tariff is not none %}\n  {{ (energy *
+          tariff) | round(2) }} \n{% else %}\n  {{ none }}\n{% endif %} \n"
+        telegram_end_message: '{{ telegram_finish }} (Завершение в {{ cycle_end_time
+          | timestamp_custom(''%H:%M'') }}) {{- '' ('' + energy_consumed | string
+          + '' кВт·ч)'' if energy_consumed is not none and energy_consumed | float
+          > 0 else '''' -}} {{- '' (Стоимость: '' + cycle_cost | string + '' ₽)''
+          if day_tariff_entity is not none and day_tariff_entity != '''' and night_tariff_entity
+          is not none and night_tariff_entity != '''' and cycle_cost is not none else
+          '''' -}}
+
+          '
+    - alias: Сохранение времени завершения в input_text
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ input_end_time_storage_entity is not none and input_end_time_storage_entity
+            != '''' }}'
+        sequence:
+        - service: input_text.set_value
+          target:
+            entity_id: '{{ input_end_time_storage_entity }}'
+          data:
+            value: '{{ now().timestamp() }}'
+    - alias: Отправка уведомлений о ЗАВЕРШЕНИИ
+      if:
+      - condition: template
+        value_template: '{{ end_notification_mode != ''none'' }}'
+      then:
+      - if:
+        - condition: template
+          value_template: '{{ ''telegram'' in end_notification_mode }}'
+        then:
+        - service: telegram_bot.send_message
+          data:
+            message: '{{ telegram_end_message }}'
+            inline_keyboard:
+            - Напомнить через {{ delay_10_min }} мин.:/reminder_10
+            - Напомнить через {{ delay_30_min }} мин.:/reminder_30
+            - Напомнить через {{ delay_60_min }} мин.:/reminder_60
+      - if:
+        - condition: template
+          value_template: '{{ ''speaker'' in end_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            sequence:
+            - repeat:
+                for_each: !input tts_media_players
+                sequence:
+                - service: tts.speak
+                  data:
+                    cache: true
+                    media_player_entity_id: '{{ repeat.item }}'
+                    message: !input tts_end_text
+                  target: !input tts_service
+      - if:
+        - condition: template
+          value_template: '{{ ''push'' in end_notification_mode }}'
+        then:
+        - choose:
+          - conditions:
+            - condition: time
+              after: !input start_time
+              before: !input end_time
+            - condition: template
+              value_template: '{{ valid_notify_service is not none and valid_notify_service
+                != '''' }}'
+            sequence:
+            - service: '{{ valid_notify_service }}'
+              data:
+                message: TTS
+                data:
+                  ttl: 0
+                  priority: high
+                  channel: alarm_strem_max
+                  tts_text: !input push_end_text
+                  title: ''
