@@ -164,7 +164,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <hr>
 
 
-### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
+### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер)
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -176,80 +176,20 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.0</strong><br><br>
+    Универсальная автоматизация для управления светом.
 
-<strong>Русский — Универсальная автоматизация света</strong><br>
-Это готовый шаблон для включения/выключения света на основе датчиков движения, открытия двери и таймера. Подходит для коридоров, лестниц, санузлов и любых зон, где нужен автоматический свет с задержкой выключения.<br><br>
+## Как работает
+- Включает свет при движении.
+- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`.
+- По завершении таймера выключает свет и запускает дополнительные действия (если заданы).
+- Опционально: при открытии двери — включение света и запуск таймера.
+- Можно задать глобальные условия (например: только ночью или только если кто-то дома).
 
-<details>
-<summary>💡 Главная идея (Нажмите чтобы раскрыть) 👈</summary>
-<ol>
-  <li><strong>Включение при движении</strong> — свет включается сразу при детекции движения.</li>
-  <li><strong>Задержка и таймер</strong> — при исчезновении движения запускается таймер (длительность из input_number). По таймеру свет отключается.</li>
-  <li><strong>Открытие двери</strong> — можно отдельно включать свет при открытии двери и перезапускать таймер.</li>
-  <li><strong>Глобальные условия</strong> — выполняется только если заданы дополнительные условия (например, только ночью или если кто-то дома).</li>
-  <li><strong>Доп. действия</strong> — после выключения света можно запускать дополнительные сценарии (например сцены или уведомления).</li>
-</ol>
-</details>
-
-<details>
-<summary>⚙️ Как это работает (Нажмите чтобы раскрыть) 👈</summary>
-<ol>
-  <li>Триггер: включение одного из выбранных датчиков движения → сервис <code>light.turn_on</code>, отмена таймера.</li>
-  <li>Триггер: датчик движения вернулся в <code>off</code> → старт выбранного <code>timer.*</code> на время из указанного <code>input_number</code>.</li>
-  <li>Триггер: открытие двери (опционально) → включить свет и запустить таймер.</li>
-  <li>Триггер: событие <code>timer.finished</code> → выключить свет и выполнить опциональные действия.</li>
-  <li>Глобальные условия в начале: если в input заданы условия, автоматизация выполнится только когда они истинны.</li>
-</ol>
-</details>
-
-<details>
-<summary>⚠️ Требования (Helpers / Setup) 👈</summary>
-<ul>
-  <li>Данные: хотя бы один binary_sensor с классом occupancy (датчик движения) и один light/zone.</li>
-  <li>timer.* — таймер Home Assistant, который будет использоваться для отсчёта времени выключения.</li>
-  <li>input_number — хранит длительность ожидания в минутах (используется для формирования duration таймера).</li>
-  <li>Опционально: датчик двери (binary_sensor) и дополнительные действия (action), которые выполнятся после выключения света.</li>
-</ul>
-</details>
-
-<details>
-<summary>💬 Контакты и поддержка 👈</summary>
-<ul>
-  <li><a href="https://t.me/u2smart4home">Telegram канал про автоматизацию домов</a></li>
-  <li><a href="https://www.youtube.com/@udobni_dom">YouTube: Удобный дом</a></li>
-  <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Яндекс.Дзен: Мой профиль</a></li>
-  <li><a href="https://teletype.in/@godisblind">Teletype</a></li>
-  <li>Если нужна помощь с настройкой — пишите в Telegram канал (ссылки выше).</li>
-</ul>
-</details>
-
-<hr>
-
-<strong>English — Universal light automation</strong><br>
-Ready-to-use blueprint to automatically turn lights on/off based on motion sensors, door opening and a timer. Ideal for hallways, stairs, bathrooms — any area where you need automatic light with delayed turn-off.<br><br>
-
-<details>
-<summary>💡 Main idea (Click to expand) 👈</summary>
-<ol>
-  <li><strong>Motion-based On</strong> — lights turn on immediately when motion is detected.</li>
-  <li><strong>Delay & Timer</strong> — when motion stops the selected <code>timer.*</code> starts (duration from <code>input_number</code>). On timer finish lights turn off.</li>
-  <li><strong>Door opening</strong> — optionally turn lights on when a door opens and restart the timer.</li>
-  <li><strong>Global conditions</strong> — automation runs only if extra conditions are met (e.g. night mode or someone at home).</li>
-  <li><strong>Post-actions</strong> — run extra actions after lights are turned off (scenes, notifications, etc.).</li>
-</ol>
-</details>
-
-<details>
-<summary>⚙️ How it works (Click to expand) 👈</summary>
-<ol>
-  <li>Trigger: motion sensor → <code>light.turn_on</code>, cancel timer.</li>
-  <li>Trigger: motion sensor → <code>off</code> → start <code>timer.*</code> for minutes from <code>input_number</code>.</li>
-  <li>Trigger: door sensor opens (optional) → turn on lights and start timer.</li>
-  <li>Trigger: <code>timer.finished</code> → turn off lights and run optional actions.</li>
-  <li>Automation respects global conditions defined in inputs.</li>
-</ol>
-</details>
+**Контакты автора:**
+- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
+- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
 
   </details>
   
@@ -439,7 +379,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <hr>
 
 
-### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
+### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер)
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
@@ -451,80 +391,20 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.0</strong><br><br>
+    Универсальная автоматизация для управления светом.
 
-<strong>Русский — Универсальная автоматизация света</strong><br>
-Это готовый шаблон для включения/выключения света на основе датчиков движения, открытия двери и таймера. Подходит для коридоров, лестниц, санузлов и любых зон, где нужен автоматический свет с задержкой выключения.<br><br>
+## Как работает
+- Включает свет при движении.
+- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`.
+- По завершении таймера выключает свет и запускает дополнительные действия (если заданы).
+- Опционально: при открытии двери — включение света и запуск таймера.
+- Можно задать глобальные условия (например: только ночью или только если кто-то дома).
 
-<details>
-<summary>💡 Главная идея (Нажмите чтобы раскрыть) 👈</summary>
-<ol>
-  <li><strong>Включение при движении</strong> — свет включается сразу при детекции движения.</li>
-  <li><strong>Задержка и таймер</strong> — при исчезновении движения запускается таймер (длительность из input_number). По таймеру свет отключается.</li>
-  <li><strong>Открытие двери</strong> — можно отдельно включать свет при открытии двери и перезапускать таймер.</li>
-  <li><strong>Глобальные условия</strong> — выполняется только если заданы дополнительные условия (например, только ночью или если кто-то дома).</li>
-  <li><strong>Доп. действия</strong> — после выключения света можно запускать дополнительные сценарии (например сцены или уведомления).</li>
-</ol>
-</details>
-
-<details>
-<summary>⚙️ Как это работает (Нажмите чтобы раскрыть) 👈</summary>
-<ol>
-  <li>Триггер: включение одного из выбранных датчиков движения → сервис <code>light.turn_on</code>, отмена таймера.</li>
-  <li>Триггер: датчик движения вернулся в <code>off</code> → старт выбранного <code>timer.*</code> на время из указанного <code>input_number</code>.</li>
-  <li>Триггер: открытие двери (опционально) → включить свет и запустить таймер.</li>
-  <li>Триггер: событие <code>timer.finished</code> → выключить свет и выполнить опциональные действия.</li>
-  <li>Глобальные условия в начале: если в input заданы условия, автоматизация выполнится только когда они истинны.</li>
-</ol>
-</details>
-
-<details>
-<summary>⚠️ Требования (Helpers / Setup) 👈</summary>
-<ul>
-  <li>Данные: хотя бы один binary_sensor с классом occupancy (датчик движения) и один light/zone.</li>
-  <li>timer.* — таймер Home Assistant, который будет использоваться для отсчёта времени выключения.</li>
-  <li>input_number — хранит длительность ожидания в минутах (используется для формирования duration таймера).</li>
-  <li>Опционально: датчик двери (binary_sensor) и дополнительные действия (action), которые выполнятся после выключения света.</li>
-</ul>
-</details>
-
-<details>
-<summary>💬 Контакты и поддержка 👈</summary>
-<ul>
-  <li><a href="https://t.me/u2smart4home">Telegram канал про автоматизацию домов</a></li>
-  <li><a href="https://www.youtube.com/@udobni_dom">YouTube: Удобный дом</a></li>
-  <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Яндекс.Дзен: Мой профиль</a></li>
-  <li><a href="https://teletype.in/@godisblind">Teletype</a></li>
-  <li>Если нужна помощь с настройкой — пишите в Telegram канал (ссылки выше).</li>
-</ul>
-</details>
-
-<hr>
-
-<strong>English — Universal light automation</strong><br>
-Ready-to-use blueprint to automatically turn lights on/off based on motion sensors, door opening and a timer. Ideal for hallways, stairs, bathrooms — any area where you need automatic light with delayed turn-off.<br><br>
-
-<details>
-<summary>💡 Main idea (Click to expand) 👈</summary>
-<ol>
-  <li><strong>Motion-based On</strong> — lights turn on immediately when motion is detected.</li>
-  <li><strong>Delay & Timer</strong> — when motion stops the selected <code>timer.*</code> starts (duration from <code>input_number</code>). On timer finish lights turn off.</li>
-  <li><strong>Door opening</strong> — optionally turn lights on when a door opens and restart the timer.</li>
-  <li><strong>Global conditions</strong> — automation runs only if extra conditions are met (e.g. night mode or someone at home).</li>
-  <li><strong>Post-actions</strong> — run extra actions after lights are turned off (scenes, notifications, etc.).</li>
-</ol>
-</details>
-
-<details>
-<summary>⚙️ How it works (Click to expand) 👈</summary>
-<ol>
-  <li>Trigger: motion sensor → <code>light.turn_on</code>, cancel timer.</li>
-  <li>Trigger: motion sensor → <code>off</code> → start <code>timer.*</code> for minutes from <code>input_number</code>.</li>
-  <li>Trigger: door sensor opens (optional) → turn on lights and start timer.</li>
-  <li>Trigger: <code>timer.finished</code> → turn off lights and run optional actions.</li>
-  <li>Automation respects global conditions defined in inputs.</li>
-</ol>
-</details>
+**Контакты автора:**
+- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
+- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
 
   </details>
   
