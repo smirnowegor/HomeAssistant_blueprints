@@ -1,141 +1,112 @@
-#!/usr/bin/env python3
-# coding: utf-8
-"""
-Robust updater for README.md:
-- If README.md missing or markers absent, inserts a sane bilingual template with markers.
-- Scans blueprints/** for YAML, extracts `blueprint.name`, `blueprint.description`, `domain`.
-- Builds bilingual entries (Категория / Category) and two <details> blocks (RU/EN) that
-  contain the full description exactly as in YAML (but strip contact blocks for README).
-- Replaces slice between <!-- BLUEPRINTS_START --> and <!-- BLUEPRINTS_END -->.
-- Writes README.md only when changed and prints clear logs for GitHub Actions.
-"""
-
 import os
-import re
-import sys
 import yaml
-from urllib.parse import quote_plus
 
-ROOT = "."
-BLUEPRINTS_ROOT = "blueprints"
-README_FILE = "README.md"
+# --- НАСТРОЙКИ ---
 REPO_URL = "https://github.com/smirnowegor/HomeAssistant_blueprints"
 BRANCH = "main"
+BLUEPRINTS_ROOT = "blueprints"
+README_FILE = "README.md"
 
-START_MARKER = "<!-- BLUEPRINTS_START -->"
-END_MARKER   = "<!-- BLUEPRINTS_END -->"
+# Маркеры в README (для RU и EN)
+START_MARKER_RU = "<!-- START_BLUEPRINTS -->"
+END_MARKER_RU = "<!-- END_BLUEPRINTS -->"
+START_MARKER_EN = "<!-- START_BLUEPRINTS_EN -->"
+END_MARKER_EN = "<!-- END_BLUEPRINTS_EN -->"
 
-# Allow PyYAML to ignore HA tags like !input
+# Хак для PyYAML (!input)
 def default_ctor(loader, tag_suffix, node):
-    try:
-        return node.value
-    except Exception:
-        return ""
+    return tag_suffix + " " + str(node.value)
 yaml.add_multi_constructor('!', default_ctor, Loader=yaml.SafeLoader)
 
-# remove author contact blocks (only for README output)
-CONTACTS_RE = re.compile(
-    r'(?:^|\n)\s*Контакты автора:.*?(?=\n\s*\n|$)|'    # "Контакты автора:" block
-    r'(?:^|\n).*?(?:Telegram|YouTube|Яндекс\.Дзен|Dzen|Teletype).*?(?=\n\s*\n|$)',
-    flags=re.IGNORECASE | re.DOTALL
-)
+def generate_entry(file_path, data, lang="ru"):
+    bp_data = data.get("blueprint", {})
+    name = bp_data.get("name", "Unnamed Blueprint")
+    description = bp_data.get("description", "")
+    domain = bp_data.get("domain", "automation")
+    
+    rel_path = os.path.relpath(file_path, ".")
+    file_url = f"{REPO_URL}/blob/{BRANCH}/{rel_path}"
+    raw_url = f"https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/{BRANCH}/{rel_path}"
+    import_link = f"https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url={raw_url}"  # Исправил на raw_url для импорта
 
-def strip_contacts(text: str) -> str:
-    if not text:
-        return text
-    cleaned = CONTACTS_RE.sub('\n', text)
-    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
-    return cleaned.strip()
+    icon = "🤖" if domain == "automation" else "📜" if domain == "script" else "🎬"
 
-def read_yaml_file(path):
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            raw = f.read()
-        data = yaml.safe_load(raw)
-        return data, raw
-    except Exception as e:
-        print(f"❌ YAML load error for {path}: {e}")
-        # still return raw for regex extraction
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                raw = f.read()
-            return None, raw
-        except Exception:
-            return None, ""
+    # Двуязычные заголовки
+    if lang == "ru":
+        summary_title = "<b>📖 Развернуть описание и установку</b>"
+        category_text = f"**Категория:** {domain} | [📂 Исходный код]({file_url})"
+        details_title = "Подробное описание"
+    else:
+        summary_title = "<b>📖 Expand Description and Installation</b>"
+        category_text = f"**Category:** {domain} | [📂 Source Code]({file_url})"
+        details_title = "Detailed Description"
 
-def extract_description_from_raw(raw_text: str) -> str:
-    if not raw_text:
-        return ""
-    # Try parsed style: description: | or > or inline quotes
-    m = re.search(r'^[ \t]*description:\s*(?:\|\-?|>\-?)\s*\n((?:[ \t]+.*\n)+)', raw_text, flags=re.IGNORECASE | re.MULTILINE)
-    if m:
-        block = m.group(1)
-        lines = [re.sub(r'^[ \t]+', '', ln.rstrip()) for ln in block.splitlines()]
-        return "\n".join(lines).strip()
-    m2 = re.search(r'^[ \t]*description:\s*[\'"](.+?)[\'"]\s*$', raw_text, flags=re.IGNORECASE | re.MULTILINE)
-    if m2:
-        return m2.group(1).strip()
-    # liberal fallback: everything after 'description:' until next top-level key (line without indent) or EOF
-    m3 = re.search(r'^[ \t]*description:\s*\n((?:[ \t].*\n)+)', raw_text, flags=re.IGNORECASE | re.MULTILINE)
-    if m3:
-        block = m3.group(1)
-        lines = [re.sub(r'^[ \t]+', '', ln.rstrip()) for ln in block.splitlines()]
-        return "\n".join(lines).strip()
-    return ""
+    entry = f"""
+### {icon} {name}
+<details>
+  <summary>{summary_title}</summary>
+  
+  {category_text}
 
-def ensure_readme_template():
-    """If README missing or markers not present, insert bilingual template with markers at top."""
-    base_template = """# 🏠 Home Assistant Blueprints by Egor Smirnov / 🇷🇺 Русская версия
+  [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)]({import_link})
 
-Привет! Это коллекция моих автоматизаций для умного дома.
-Вся документация создаётся из кода — описания хранятся прямо в YAML-файлах.
+  ---
 
-## 📥 Как установить (без HACS)
-
-**Способ 1 — Кнопка "Import"**  
-Нажмите на синюю кнопку `Import` в карточке нужного блупринта — она откроет диалог импорта в вашей Home Assistant и подставит raw URL шаблона.
-
-**Способ 2 — Ручная установка (через raw URL)**  
-1. Откройте страницу нужного YAML (Raw) — ссылка рядом с карточкой.  
-2. Скопируйте raw URL и вставьте в `Configuration -> Blueprints -> Import blueprint` в Home Assistant.
-
----
-
-# 🏠 Home Assistant Blueprints by Egor Smirnov / 🇬🇧 English version
-
-Welcome! This is my collection of Home Assistant blueprints.
-Docs are generated from code — the descriptions live inside YAML files.
-
-## 📥 How to install (no HACS)
-
-**Method 1 — Import button**  
-Click the blue `Import` badge in a blueprint card — it opens the import dialog in your Home Assistant with the raw URL prefilled.
-
-**Method 2 — Manual (via raw URL)**  
-1. Open the blueprint's Raw file (link near the card).  
-2. Copy raw URL and go to `Configuration -> Blueprints -> Import blueprint` in Home Assistant.
-
----
-
-## 📋 Collection / Коллекция
-
-<!-- BLUEPRINTS_START -->
-<!-- BLUEPRINTS_END -->
-
----
-## ☕ Support / Поддержка
-Если мои работы помогли — вы можете поддержать автора.
-* Telegram: https://t.me/u2smart4home
+  <details>
+    <summary><b>{details_title}</b></summary>
+    {description}
+  </details>
+  
+</details>
+<hr>
 """
-    if not os.path.exists(README_FILE):
-        with open(README_FILE, "w", encoding="utf-8") as f:
-            f.write(base_template)
-        print(f"ℹ️ README.md не найден. Создан шаблон с маркерами.")
-        return
+    return entry
 
-    with open(README_FILE, "r", encoding="utf-8") as f:
-        txt = f.read()
-    if START_MARKER in txt and END_MARKER in txt:
-        print("ℹ️ README.md уже содержит маркеры.")
-        return
-    # Insert template above existing
+def main():
+    entries_ru = []
+    entries_en = []
+    
+    for root, dirs, files in os.walk(BLUEPRINTS_ROOT):
+        for file in files:
+            if file.endswith(".yaml"):
+                full_path = os.path.join(root, file)
+                try:
+                    with open(full_path, "r", encoding="utf-8") as f:
+                        data = yaml.safe_load(f)
+                        if "blueprint" in data:
+                            print(f"Processing: {file}")
+                            entries_ru.append(generate_entry(full_path, data, "ru"))
+                            entries_en.append(generate_entry(full_path, data, "en"))  # Если нужно перевести description, добавь логику здесь
+                except Exception as e:
+                    print(f"❌ Error processing {file}: {e}")
+
+    entries_ru.sort()
+    entries_en.sort()
+    new_content_ru = "\n".join(entries_ru)
+    new_content_en = "\n".join(entries_en)
+
+    # Обновляем README
+    try:
+        with open(README_FILE, "r", encoding="utf-8") as f:
+            readme_text = f.read()
+
+        # RU блок
+        if START_MARKER_RU in readme_text and END_MARKER_RU in readme_text:
+            start_idx_ru = readme_text.find(START_MARKER_RU) + len(START_MARKER_RU)
+            end_idx_ru = readme_text.find(END_MARKER_RU)
+            readme_text = readme_text[:start_idx_ru] + "\n" + new_content_ru + "\n" + readme_text[end_idx_ru:]
+
+        # EN блок
+        if START_MARKER_EN in readme_text and END_MARKER_EN in readme_text:
+            start_idx_en = readme_text.find(START_MARKER_EN) + len(START_MARKER_EN)
+            end_idx_en = readme_text.find(END_MARKER_EN)
+            readme_text = readme_text[:start_idx_en] + "\n" + new_content_en + "\n" + readme_text[end_idx_en:]
+
+        with open(README_FILE, "w", encoding="utf-8") as f:
+            f.write(readme_text)
+        print("✅ README.md updated successfully!")
+    except FileNotFoundError:
+        print("⚠️ README.md not found!")
+
+if __name__ == "__main__":
+    main()
