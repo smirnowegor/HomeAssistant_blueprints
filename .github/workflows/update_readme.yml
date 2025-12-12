@@ -5,39 +5,84 @@ on:
     paths:
       - 'blueprints/**'
       - 'scripts/**'
+      - '.github/workflows/update_readme.yml'
     branches:
       - main
+  workflow_dispatch: {}
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  update-readme:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Show current branch
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          git branch --show-current || true
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pyyaml
-
-      - name: Run generator
-        run: python scripts/update_readme.py
-
-      - name: Configure git
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          python -m pip install --upgrade pip
+          pip install pyyaml
 
-      - name: Commit and Push
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "docs: update README with latest blueprint descriptions"
-          file_pattern: README.md
+      - name: Show README before update (first 120 lines)
+        if: always()
+        run: |
+          echo "----- README BEFORE -----"
+          sed -n '1,120p' README.md || true
+          echo "-------------------------"
+
+      - name: Run generator script
+        id: run_generator
+        run: |
+          set -o pipefail
+          python scripts/update_readme.py 2>&1 | tee update_readme.log
+          echo "exit_code=$?" > generator_status.txt
+          tail -n +1 update_readme.log
+        continue-on-error: false
+
+      - name: Show README after update (first 120 lines)
+        if: always()
+        run: |
+          echo "----- README AFTER -----"
+          sed -n '1,120p' README.md || true
+          echo "------------------------"
+
+      - name: Show git status & diff
+        run: |
+          git status --porcelain
+          echo "---- diff (if any) ----"
+          git --no-pager diff README.md || true
+          echo "------------------------"
+
+      - name: Commit README if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Only commit if README.md changed
+          if git diff --quiet -- README.md; then
+            echo "No changes to README.md, nothing to commit."
+            exit 0
+          fi
+
+          git add README.md
+          git commit -m "docs: update README with latest blueprint descriptions [skip ci]" -a
+          git push origin HEAD:main
+
