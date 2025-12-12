@@ -35,7 +35,7 @@ Click the blue `Import` badge in a blueprint card — it opens the import dialog
 <!-- BLUEPRINTS_START -->
 
 
-### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия
+### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия!!!!
 Категория: **automation** — [Исходник](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/humidFanSmart.yaml) • [Raw](https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/humidFanSmart.yaml)
 
 [![Import blueprint badge](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fsmirnowegor%2FHomeAssistant_blueprints%2Fmain%2Fblueprints%2Fautomation%2Fsmirnowegor%2FhumidFanSmart.yaml)
