@@ -144,7 +144,7 @@ If you find this blueprint useful, you can support the author through various me
 <hr>
 
 
-### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия
+### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -157,6 +157,7 @@ If you find this blueprint useful, you can support the author through various me
   <details>
     <summary><b>Подробное описание</b></summary>
     Version: 0.1
+
 <details>    
 **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
 </details>
@@ -183,6 +184,39 @@ If you find this blueprint useful, you can support the author through various me
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
+</details>
+
+---
+
+Version: 0.1
+
+<details>    
+**Professional and fault-tolerant automation for the bathroom.**
+</details>
+<details>     
+This logic solves the main problem: it does not wait for a fixed humidity threshold (e.g., 70%), but constantly compares the room humidity with a **dynamic norm** (reference/median of the house). 
+
+### 💡 Key Features
+
+1.  **Dynamic Comparison:** Works correctly in winter (when house humidity is low) and summer (when humidity is high everywhere).
+
+2.  **Smart Hysteresis:** Shutdown occurs not after reaching the absolute norm, but when humidity drops by half the critical difference. This saves energy and resources.
+
+3.  **Manual Mode:** If the exhaust fan is turned on manually, it runs for the specified ventilation timer (e.g., 15 min) independent of humidity.
+
+4.  **Protection (Safety Timeout):** Emergency timer forcibly turns off the fan if humidity doesn't drop for too long.
+
+5.  **Blocking Conditions (v2):** Option to prevent auto-start if window is open or night mode is enabled.
+
+6.  **Post-Actions (v2):** Execute additional commands after shutdown (e.g., turn off light, send notification).
+
+</details>
+<details>    
+  **Author's Contacts:**
+- [Telegram channel about home automation](https://t.me/u2smart4home)
+- [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
+- [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 - [Teletype](https://teletype.in/@godisblind)
 </details>
 
@@ -346,7 +380,7 @@ If you find this blueprint useful, you can support the author through various me
 <hr>
 
 
-### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия
+### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
@@ -359,6 +393,7 @@ If you find this blueprint useful, you can support the author through various me
   <details>
     <summary><b>Detailed Description</b></summary>
     Version: 0.1
+
 <details>    
 **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
 </details>
@@ -385,6 +420,39 @@ If you find this blueprint useful, you can support the author through various me
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
+</details>
+
+---
+
+Version: 0.1
+
+<details>    
+**Professional and fault-tolerant automation for the bathroom.**
+</details>
+<details>     
+This logic solves the main problem: it does not wait for a fixed humidity threshold (e.g., 70%), but constantly compares the room humidity with a **dynamic norm** (reference/median of the house). 
+
+### 💡 Key Features
+
+1.  **Dynamic Comparison:** Works correctly in winter (when house humidity is low) and summer (when humidity is high everywhere).
+
+2.  **Smart Hysteresis:** Shutdown occurs not after reaching the absolute norm, but when humidity drops by half the critical difference. This saves energy and resources.
+
+3.  **Manual Mode:** If the exhaust fan is turned on manually, it runs for the specified ventilation timer (e.g., 15 min) independent of humidity.
+
+4.  **Protection (Safety Timeout):** Emergency timer forcibly turns off the fan if humidity doesn't drop for too long.
+
+5.  **Blocking Conditions (v2):** Option to prevent auto-start if window is open or night mode is enabled.
+
+6.  **Post-Actions (v2):** Execute additional commands after shutdown (e.g., turn off light, send notification).
+
+</details>
+<details>    
+  **Author's Contacts:**
+- [Telegram channel about home automation](https://t.me/u2smart4home)
+- [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
+- [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
 - [Teletype](https://teletype.in/@godisblind)
 </details>
 
