@@ -3,8 +3,8 @@ name: Auto-Update Documentation
 on:
   push:
     paths:
-      - 'blueprints/**'   # Запускать, если изменились блупринты
-      - 'scripts/**'      # Или сам скрипт
+      - 'blueprints/**'
+      - 'scripts/**'
     branches:
       - main
 
@@ -16,18 +16,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Install PyYAML
+      - name: Install dependencies
         run: pip install pyyaml
 
-      - name: Run Generator Script
+      - name: Run generator
         run: python scripts/update_readme.py
+
+      - name: Configure git
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v4
