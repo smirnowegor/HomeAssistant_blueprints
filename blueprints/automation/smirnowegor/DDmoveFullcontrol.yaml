@@ -1,80 +1,113 @@
 blueprint:
-  name: "Универсальная автоматизация управления светом (движение + дверь + таймер)"
+  name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
-    Универсальная автоматизация для управления светом.
+    <strong>Version: 2.1</strong><br><br>
 
-    ## Как работает
-    - Включает свет при движении.
-    - При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`.
-    - По завершении таймера выключает свет и запускает дополнительные действия (если заданы).
-    - Опционально: при открытии двери — включение света и запуск таймера.
-    - Можно задать глобальные условия (например: только ночью или только если кто-то дома).
+    <strong>Основное что делает блупринт: Управление светом на основе датчиков движения, открытия двери и таймера / Main things Blueprint does: Controls lights based on motion sensors, door sensor and a timer</strong><br>
+    Универсальная автоматизация для управления светом в комнате/коридоре: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и по завершении таймера выключает свет. Поддерживает глобальные условия (например — только ночью или только когда кто-то дома) и выполняет доп. действия после завершения таймера (напр. уведомления, сценарии). / Universal automation for lighting: turns lights on when motion or door open detected, starts a timer after motion stops and turns lights off when the timer finishes. Supports global conditions (e.g. only at night or only when someone is home) and additional actions after timer finish (e.g. notifications, scripts).
 
-    **Контакты автора:**
-    - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
-    - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
-    - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
-    - [Teletype](https://teletype.in/@godisblind)
+    <details>
+    <summary>Еще мои блупринты / More blueprints</summary>
+    <ul>
+      <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
+    </ul>
+    </details>
+
+    <details>
+    <summary>💡 Главная идея / Main idea</summary>
+    <p>Этот шаблон удобен тем, что объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута и доп. действий. / This blueprint unifies multiple trigger sources and gives flexible timeout and post-timer actions.</p>
+    <ol>
+      <li><strong>Проще управлять светом</strong> — единый шаблон для коридора, ванной, прихожей. / Single template for hall, bathroom, entryway.</li>
+      <li><strong>Гибкость</strong> — таймер хранится в input_number, можно быстро менять длительность. / Flexibility — timer duration kept in an input_number for quick changes.</li>
+      <li><strong>Интеграция</strong> — можно выполнить любые действия после выключения (уведомления, сценарии). / Integration — run arbitrary actions after lights off (notifications, scripts).</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚙️ Как это работает / How it works</summary>
+    <ol>
+      <li><strong>Старт / Start:</strong> Датчик движения в положении "on" или датчик двери открылся → включаем свет и отменяем таймер. / Motion sensor → on or door opened → turn lights on and cancel timer.</li>
+      <li><strong>Процесс / Process:</strong> При отсутствии движения запускается выбранный timer.* с длительностью из указанного input_number (в минутах). / When motion goes off, start selected timer.* with duration from input_number (minutes).</li>
+      <li><strong>Финиш / Finish:</strong> Когда таймер завершился — выключаем свет и выполняем дополнительные действия (если заданы). / When timer finishes → turn lights off and run additional actions (if provided).</li>
+      <li><strong>Глобальные условия / Global conditions:</strong> Если заданы — должны быть истинны для выполнения любой последовательности (например: только ночью). / If provided, must be true for automations to run (e.g., only at night).</li>
+    </ol>
+    </details>
+
+    <details>
+    <summary>⚠️ Настройки (Helpers) / Requirements (Helpers)</summary>
+    <ul>
+      <li><code>input_number</code> — хранит длительность таймера в минутах.</li>
+      <li><code>timer.*</code> — выбранный таймер, который будет стартовать/останавливаться.</li>
+      <li>Опционально: <code>binary_sensor</code> двери — для включения света при открытии.</li>
+      <li>Опционально: Дополнительные actions (скрипты/уведомления) — выполняются после завершения таймера.</li>
+    </ul>
+    </details>
+
+    <hr>
+
+    <strong>Universal light control: Motion, Door & Timer</strong><br>
+    Simple and flexible automation: turn on lights by motion or door, start timer on motion off, turn off when timer finishes; supports global conditions and post-timer actions.
   domain: automation
+
   input:
     motion_sensors:
-      name: "Датчики движения"
-      description: "Выберите один или несколько binary_sensor с классом occupancy (датчики движения)."
+      name: "Датчики движения / Motion sensors"
+      description: "Выберите один или несколько binary_sensor с классом occupancy (датчики движения). / Select one or more motion binary_sensors (occupancy)."
       default: []
       selector:
         entity:
           domain: binary_sensor
           multiple: true
+
     lights:
-      name: "Целевые светильники или зона"
-      description: "Выберите один или несколько light.* или целую зону (будут включаться/выключаться только светильники)."
+      name: "Целевые светильники или зона / Target lights or zone"
+      description: "Выберите light.* или зону, содержащую светильники — они будут включаться/выключаться этим шаблоном. / Select one or multiple light entities or a light zone."
       selector:
         target:
           entity:
             domain: light
+
     timer_entity:
-      name: "Таймер"
-      description: "Выберите timer.* — будет использоваться для отсчёта времени до выключения света."
+      name: "Таймер / Timer entity"
+      description: "Выберите timer.* — будет использоваться для отсчёта времени до выключения света. / Select a timer.* to be used for countdown to turn lights off."
       selector:
         entity:
           domain: timer
+
     delay_input_number:
-      name: "Input number для времени ожидания"
-      description: "Выберите input_number (в минутах), который задаёт длительность таймера. После заведения номера нужно поставить значение больше 0 для нормальной работы таймера"
+      name: "Input number для времени ожидания (минуты) / Input number for wait time (minutes)"
+      description: "Выберите input_number (в минутах). Значение > 0. / Select input_number in minutes. Value must be > 0."
       selector:
         entity:
           domain: input_number
+
     door_sensor:
-      name: "Датчик двери (опционально)"
-      description: "Выберите binary_sensor двери. При открытии двери свет включится и запустится таймер. Можно оставить пустым."
-      # ИСПРАВЛЕНИЕ 1: default: []
+      name: "Датчик двери (опционально) / Door sensor (optional)"
+      description: "Опционально: binary_sensor двери — при открытии будет включаться свет и запускаться таймер. Можно оставить пустым. / Optional: door binary_sensor — on = will turn on lights and start timer. Leave empty if unused."
       default: []
       selector:
         entity:
           domain: binary_sensor
-          # ИСПРАВЛЕНИЕ 2: multiple: true
           multiple: true
+
     global_conditions:
-      name: "Глобальные условия"
-      description: "Эти условия должны быть истинны, чтобы автоматизация выполнялась. Например: только ночью, только если кто-то дома."
+      name: "Глобальные условия (опционально) / Global conditions (optional)"
+      description: "Список условий, которые должны быть истинны для выполнения автоматики (например: только ночь, кто-то дома). Оставьте пустым, если не нужно. / Conditions that must be true for automation to run (e.g. only at night, someone home). Leave empty if not required."
       default: []
       selector:
         condition: {}
+
     timer_finished_actions:
-      name: "Действия при завершении таймера"
-      description: "Эти действия будут выполнены после выключения света, когда таймер завершится. Можно оставить пустым."
+      name: "Действия при завершении таймера / Actions when timer finished"
+      description: "Дополнительные действия (action scripts) выполняемые после выключения света, когда таймер завершился. / Optional actions to run after lights are turned off when timer finishes."
       default: []
       selector:
         action: {}
 
 variables:
+  # переменная содержит entity_id input_number, затем мы читаем её состояние в minutes
   delay_input: !input delay_input_number
   minutes: "{{ states(delay_input) | default('3') | float | int }}"
-  # 'door_sensor' и 'motion_list' здесь больше не нужны
-  # (если только вы не используете их в 'global_conditions')
-  # Оставляю 'motion_list' на всякий случай, т.к. он был у вас.
-  motion_list: !input motion_sensors
-
 
 trigger:
   - platform: state
@@ -90,15 +123,11 @@ trigger:
     event_data:
       entity_id: !input timer_entity
     id: timer_finished
-  # ИСПРАВЛЕНИЕ 3: Возвращаем platform: state.
-  # Теперь он будет работать, т.к. !input door_sensor
-  # будет [] (пустым списком), если ничего не выбрано.
   - platform: state
     entity_id: !input door_sensor
     to: "on"
     id: door_opened
 
-# Глобальные условия
 condition: !input global_conditions
 
 action:
@@ -112,6 +141,7 @@ action:
           - service: timer.cancel
             target:
               entity_id: !input timer_entity
+
       - conditions:
           - condition: trigger
             id: motion_stopped
@@ -125,6 +155,7 @@ action:
                 {% set hh = (m // 60) %}
                 {% set mm = (m % 60) %}
                 {{ "%02d:%02d:00" | format(hh, mm) }}
+
       - conditions:
           - condition: trigger
             id: door_opened
@@ -140,6 +171,7 @@ action:
                 {% set hh = (m // 60) %}
                 {% set mm = (m % 60) %}
                 {{ "%02d:%02d:00" | format(hh, mm) }}
+
       - conditions:
           - condition: trigger
             id: timer_finished
@@ -148,5 +180,6 @@ action:
             target: !input lights
           - choose: []
             default: !input timer_finished_actions
+
     default: []
 mode: restart
