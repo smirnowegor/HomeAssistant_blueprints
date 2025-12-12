@@ -158,10 +158,10 @@ If you find this blueprint useful, you can support the author through various me
     <summary><b>Подробное описание</b></summary>
     Version: 0.1
 
-<details>    
 **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
-</details>
-<details>     
+
+<details>
+<summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
 Эта логика решает главную проблему: она не ждет фиксированного порога влажности (например, 70%), а постоянно сравнивает влажность в помещении с **динамической нормой** (эталоном/медианой дома). 
 
 ### 💡 Ключевые особенности
@@ -177,10 +177,10 @@ If you find this blueprint useful, you can support the author through various me
 5.  **Блокирующие Условия (v2):** Возможность запретить авто-запуск, если открыто окно или включен ночной режим.
 
 6.  **Пост-Действия (v2):** Выполнение дополнительных команд после выключения (например, выключить свет, отправить уведомление).
-
 </details>
-<details>    
-  **Контакты автора:**
+
+<details>
+<summary>💬 Контакты автора 👈</summary>
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
@@ -191,10 +191,10 @@ If you find this blueprint useful, you can support the author through various me
 
 Version: 0.1
 
-<details>    
 **Professional and fault-tolerant automation for the bathroom.**
-</details>
-<details>     
+
+<details>
+<summary>💡 Main Idea (Click to expand) 👈</summary>
 This logic solves the main problem: it does not wait for a fixed humidity threshold (e.g., 70%), but constantly compares the room humidity with a **dynamic norm** (reference/median of the house). 
 
 ### 💡 Key Features
@@ -210,10 +210,10 @@ This logic solves the main problem: it does not wait for a fixed humidity thresh
 5.  **Blocking Conditions (v2):** Option to prevent auto-start if window is open or night mode is enabled.
 
 6.  **Post-Actions (v2):** Execute additional commands after shutdown (e.g., turn off light, send notification).
-
 </details>
-<details>    
-  **Author's Contacts:**
+
+<details>
+<summary>💬 Author's Contacts 👈</summary>
 - [Telegram channel about home automation](https://t.me/u2smart4home)
 - [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
 - [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
@@ -394,10 +394,10 @@ If you find this blueprint useful, you can support the author through various me
     <summary><b>Detailed Description</b></summary>
     Version: 0.1
 
-<details>    
 **Профессиональная и отказоустойчивая автоматизация для ванной комнаты.**
-</details>
-<details>     
+
+<details>
+<summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
 Эта логика решает главную проблему: она не ждет фиксированного порога влажности (например, 70%), а постоянно сравнивает влажность в помещении с **динамической нормой** (эталоном/медианой дома). 
 
 ### 💡 Ключевые особенности
@@ -413,10 +413,10 @@ If you find this blueprint useful, you can support the author through various me
 5.  **Блокирующие Условия (v2):** Возможность запретить авто-запуск, если открыто окно или включен ночной режим.
 
 6.  **Пост-Действия (v2):** Выполнение дополнительных команд после выключения (например, выключить свет, отправить уведомление).
-
 </details>
-<details>    
-  **Контакты автора:**
+
+<details>
+<summary>💬 Контакты автора 👈</summary>
 - [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
 - [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
 - [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
@@ -427,10 +427,10 @@ If you find this blueprint useful, you can support the author through various me
 
 Version: 0.1
 
-<details>    
 **Professional and fault-tolerant automation for the bathroom.**
-</details>
-<details>     
+
+<details>
+<summary>💡 Main Idea (Click to expand) 👈</summary>
 This logic solves the main problem: it does not wait for a fixed humidity threshold (e.g., 70%), but constantly compares the room humidity with a **dynamic norm** (reference/median of the house). 
 
 ### 💡 Key Features
@@ -446,10 +446,10 @@ This logic solves the main problem: it does not wait for a fixed humidity thresh
 5.  **Blocking Conditions (v2):** Option to prevent auto-start if window is open or night mode is enabled.
 
 6.  **Post-Actions (v2):** Execute additional commands after shutdown (e.g., turn off light, send notification).
-
 </details>
-<details>    
-  **Author's Contacts:**
+
+<details>
+<summary>💬 Author's Contacts 👈</summary>
 - [Telegram channel about home automation](https://t.me/u2smart4home)
 - [YouTube: Convenient Home](https://www.youtube.com/@udobni_dom)
 - [Yandex.Zen: My Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
