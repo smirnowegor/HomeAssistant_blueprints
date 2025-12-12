@@ -1,11 +1,23 @@
 blueprint:
-  name: 'Умная Стирка: Уведомления, Энергия и Telegram \ Smart Washing Machine: Notifications, Energy & Telegram'
+  name: 'Стиральная машина: уведомления и напоминания (универсальный Blueprint)'
   description: |
-    **Универсальное решение. Уведомляет о старте/финише, считает стоимость, напоминает о белье.**
+    Version: 2.1
+
+    **Умная Стирка: Уведомления, Энергия и Telegram**
+
+    Универсальное решение. Уведомляет о старте/финише, считает стоимость, напоминает о белье.
+
+    <details>
+    <summary>Еще мои блупринты</summary>
+    d
+    </details>
 
     <details>
     <summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
-    Этот шаблон решает три проблемы: 1. **Забытое белье:** Напоминания не дадут вещам "задохнуться" в машине. 2. **Контроль расходов:** Вы точно знаете, сколько стоила конкретная стирка (с учетом дневных/ночных тарифов). 3. **Гибкость:** Можно настроить, чтобы днем говорила Алиса/Google, а ночью приходило только тихое уведомление в Телеграм.
+    Этот шаблон решает три проблемы:
+    1. **Забытое белье:** Напоминания не дадут вещам "задохнуться" в машине.
+    2. **Контроль расходов:** Вы точно знаете, сколько стоила конкретная стирка (с учетом дневных/ночных тарифов).
+    3. **Гибкость:** Можно настроить, чтобы днем говорила Алиса/Google, а ночью приходило только тихое уведомление в Телеграм.
     </details>
 
     <details>
@@ -44,8 +56,14 @@ blueprint:
     </details>
 
     ---
+    **Smart Washing Machine: Notifications, Energy & Telegram**
 
-    **Universal solution. Notifies about start/finish, calculates cost, reminds about laundry.**
+    Universal solution. Notifies about start/finish, calculates cost, reminds about laundry.
+
+    <details>
+    <summary>More blueprints</summary>
+    d
+    </details>
 
     <details>
     <summary>💡 Main idea (Click to expand) 👈</summary>
@@ -89,9 +107,9 @@ blueprint:
     * [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
     * [Dzen Profile](https://dzen.ru/id/5e32d0969929ba40059b5892)
     </details>
-    
-domain: automation
 
+
+  domain: automation
   input:
     power_sensor:
       name: Сенсор мощности (Обязательно)
