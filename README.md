@@ -164,7 +164,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <hr>
 
 
-### 🤖 Универсальная автоматизация света (движение + дверь + таймер) / Universal light automation (motion + door + timer)
+### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -176,119 +176,23 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.1</strong><br><br>
-<strong>Умный свет: движение, дверь и таймер</strong><br>
-Универсальное решение: включает свет по движению или открытию двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.
-<details>
-  <summary>Еще мои блупринты</summary>
-  <ul>
-    <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
-  </ul>
-</details>
-<details>
-  <summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
-  <p>Этот шаблон решает основные задачи управления светом:</p>
-  <ol>
-    <li><strong>Автоматизация</strong> — свет включается при движении или открытии двери.</li>
-    <li><strong>Экономия</strong> — таймер гарантирует, что свет не останется включённым зря.</li>
-    <li><strong>Гибкость</strong> — можно задать глобальные условия (например, только ночью или только если кто-то дома).</li>
-    <li><strong>Дополнительные действия</strong> — после выключения света можно запускать другие сценарии.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚙️ Как это работает (Нажмите, чтобы раскрыть) 👈</summary>
-  <ol>
-    <li><strong>Движение:</strong> при обнаружении движения свет включается, таймер сбрасывается.</li>
-    <li><strong>Отсутствие движения:</strong> запускается таймер с указанной задержкой.</li>
-    <li><strong>Дверь:</strong> при открытии двери свет включается и запускается таймер.</li>
-    <li><strong>Завершение таймера:</strong> свет выключается, выполняются дополнительные действия.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚠️ Настройки (Helpers / Inputs) 👈</summary>
-  <ul>
-    <li><code>motion_sensors</code> — датчики движения (binary_sensor с классом occupancy).</li>
-    <li><code>lights</code> — целевые light.* или зона.</li>
-    <li><code>timer_entity</code> — timer.* для отсчёта времени до выключения.</li>
-    <li><code>delay_input_number</code> — input_number (в минутах) для длительности таймера.</li>
-    <li><code>door_sensor</code> — датчик двери (опционально).</li>
-    <li><code>global_conditions</code> — условия выполнения (например, только ночью).</li>
-    <li><code>timer_finished_actions</code> — действия после завершения таймера.</li>
-  </ul>
-</details>
-<details>
-  <summary>💰 Поддержать автора 👈</summary>
-  <ul>
-    <li>Дзен: <a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Поддержать на Дзен</a></li>
-    <li>Donat: <a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
-    <li>Telegram: <a href="https://t.me/tribute/app?startapp=dvHM">Связаться через Telegram</a></li>
-    <li>Криптокошелек (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
-  </ul>
-</details>
-<details>
-  <summary>💬 Контакты 👈</summary>
-  <ul>
-    <li><a href="https://t.me/u2smart4home">Telegram канал</a></li>
-    <li><a href="https://www.youtube.com/@udobni_dom">YouTube: Удобный дом</a></li>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen Profile</a></li>
-  </ul>
-</details>
-<hr>
-<strong>Smart Light: Motion, Door & Timer</strong><br>
-Universal solution: turns lights on with motion or door, off with timer, supports global conditions and extra actions.
-<details>
-  <summary>More blueprints</summary>
-  <ul>
-    <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
-  </ul>
-</details>
-<details>
-  <summary>💡 Main idea (Click to expand) 👈</summary>
-  <ol>
-    <li><strong>Automation</strong> — lights on by motion or door.</li>
-    <li><strong>Energy saving</strong> — timer ensures lights don’t stay on unnecessarily.</li>
-    <li><strong>Flexibility</strong> — global conditions (e.g., only at night).</li>
-    <li><strong>Extra actions</strong> — run other automations after lights off.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚙️ How it works (Click to expand) 👈</summary>
-  <ol>
-    <li><strong>Motion:</strong> detected → lights on, timer reset.</li>
-    <li><strong>No motion:</strong> timer starts with delay.</li>
-    <li><strong>Door:</strong> opened → lights on, timer starts.</li>
-    <li><strong>Timer finished:</strong> lights off, extra actions run.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚠️ Requirements (Inputs) 👈</summary>
-  <ul>
-    <li><code>motion_sensors</code> — motion sensors (binary_sensor occupancy).</li>
-    <li><code>lights</code> — target lights or zone.</li>
-    <li><code>timer_entity</code> — timer entity.</li>
-    <li><code>delay_input_number</code> — input_number in minutes for timer duration.</li>
-    <li><code>door_sensor</code> — door sensor (optional).</li>
-    <li><code>global_conditions</code> — conditions to run automation.</li>
-    <li><code>timer_finished_actions</code> — actions after timer ends.</li>
-  </ul>
-</details>
-<details>
-  <summary>💰 Support the author 👈</summary>
-  <ul>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Support via Dzen</a></li>
-    <li><a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
-    <li><a href="https://t.me/tribute/app?startapp=dvHM">Telegram</a></li>
-    <li>Crypto (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
-  </ul>
-</details>
-<details>
-  <summary>💬 Contacts 👈</summary>
-  <ul>
-    <li><a href="https://t.me/u2smart4home">Telegram channel</a></li>
-    <li><a href="https://www.youtube.com/@udobni_dom">YouTube channel</a></li>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen profile</a></li>
-  </ul>
-</details>
+    <strong>Version: 1.2</strong><br><br>
+
+<strong>Универсальная автоматизация для управления светом</strong><br>
+- Включает свет при движении или открытии двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.<br><br>
+
+## Как работает / How it works
+- Включает свет при движении. / Turns lights on when motion is detected.
+- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`. / When motion stops, starts the selected `timer.*` with duration from `input_number`.
+- По завершении таймера выключает свет и запускает дополнительные действия (если заданы). / When timer finishes, turns lights off and runs additional actions (if provided).
+- Опционально: при открытии двери — включение света и запуск таймера. / Optionally: opening a door turns lights on and starts the timer.
+- Можно задать глобальные условия (например: только ночью или только если кто-то дома). / You can set global conditions (e.g., only at night or only when someone is home).
+
+**Контакты автора / Author contacts:**
+- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
+- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
 
   </details>
   
@@ -478,7 +382,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <hr>
 
 
-### 🤖 Универсальная автоматизация света (движение + дверь + таймер) / Universal light automation (motion + door + timer)
+### 🤖 Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light automation (motion + door + timer)
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
@@ -490,119 +394,23 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.1</strong><br><br>
-<strong>Умный свет: движение, дверь и таймер</strong><br>
-Универсальное решение: включает свет по движению или открытию двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.
-<details>
-  <summary>Еще мои блупринты</summary>
-  <ul>
-    <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
-  </ul>
-</details>
-<details>
-  <summary>💡 Главная идея (Нажмите, чтобы раскрыть) 👈</summary>
-  <p>Этот шаблон решает основные задачи управления светом:</p>
-  <ol>
-    <li><strong>Автоматизация</strong> — свет включается при движении или открытии двери.</li>
-    <li><strong>Экономия</strong> — таймер гарантирует, что свет не останется включённым зря.</li>
-    <li><strong>Гибкость</strong> — можно задать глобальные условия (например, только ночью или только если кто-то дома).</li>
-    <li><strong>Дополнительные действия</strong> — после выключения света можно запускать другие сценарии.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚙️ Как это работает (Нажмите, чтобы раскрыть) 👈</summary>
-  <ol>
-    <li><strong>Движение:</strong> при обнаружении движения свет включается, таймер сбрасывается.</li>
-    <li><strong>Отсутствие движения:</strong> запускается таймер с указанной задержкой.</li>
-    <li><strong>Дверь:</strong> при открытии двери свет включается и запускается таймер.</li>
-    <li><strong>Завершение таймера:</strong> свет выключается, выполняются дополнительные действия.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚠️ Настройки (Helpers / Inputs) 👈</summary>
-  <ul>
-    <li><code>motion_sensors</code> — датчики движения (binary_sensor с классом occupancy).</li>
-    <li><code>lights</code> — целевые light.* или зона.</li>
-    <li><code>timer_entity</code> — timer.* для отсчёта времени до выключения.</li>
-    <li><code>delay_input_number</code> — input_number (в минутах) для длительности таймера.</li>
-    <li><code>door_sensor</code> — датчик двери (опционально).</li>
-    <li><code>global_conditions</code> — условия выполнения (например, только ночью).</li>
-    <li><code>timer_finished_actions</code> — действия после завершения таймера.</li>
-  </ul>
-</details>
-<details>
-  <summary>💰 Поддержать автора 👈</summary>
-  <ul>
-    <li>Дзен: <a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Поддержать на Дзен</a></li>
-    <li>Donat: <a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
-    <li>Telegram: <a href="https://t.me/tribute/app?startapp=dvHM">Связаться через Telegram</a></li>
-    <li>Криптокошелек (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
-  </ul>
-</details>
-<details>
-  <summary>💬 Контакты 👈</summary>
-  <ul>
-    <li><a href="https://t.me/u2smart4home">Telegram канал</a></li>
-    <li><a href="https://www.youtube.com/@udobni_dom">YouTube: Удобный дом</a></li>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen Profile</a></li>
-  </ul>
-</details>
-<hr>
-<strong>Smart Light: Motion, Door & Timer</strong><br>
-Universal solution: turns lights on with motion or door, off with timer, supports global conditions and extra actions.
-<details>
-  <summary>More blueprints</summary>
-  <ul>
-    <li><a href="https://github.com/smirnowegor/HomeAssistant_blueprints">Git</a></li>
-  </ul>
-</details>
-<details>
-  <summary>💡 Main idea (Click to expand) 👈</summary>
-  <ol>
-    <li><strong>Automation</strong> — lights on by motion or door.</li>
-    <li><strong>Energy saving</strong> — timer ensures lights don’t stay on unnecessarily.</li>
-    <li><strong>Flexibility</strong> — global conditions (e.g., only at night).</li>
-    <li><strong>Extra actions</strong> — run other automations after lights off.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚙️ How it works (Click to expand) 👈</summary>
-  <ol>
-    <li><strong>Motion:</strong> detected → lights on, timer reset.</li>
-    <li><strong>No motion:</strong> timer starts with delay.</li>
-    <li><strong>Door:</strong> opened → lights on, timer starts.</li>
-    <li><strong>Timer finished:</strong> lights off, extra actions run.</li>
-  </ol>
-</details>
-<details>
-  <summary>⚠️ Requirements (Inputs) 👈</summary>
-  <ul>
-    <li><code>motion_sensors</code> — motion sensors (binary_sensor occupancy).</li>
-    <li><code>lights</code> — target lights or zone.</li>
-    <li><code>timer_entity</code> — timer entity.</li>
-    <li><code>delay_input_number</code> — input_number in minutes for timer duration.</li>
-    <li><code>door_sensor</code> — door sensor (optional).</li>
-    <li><code>global_conditions</code> — conditions to run automation.</li>
-    <li><code>timer_finished_actions</code> — actions after timer ends.</li>
-  </ul>
-</details>
-<details>
-  <summary>💰 Support the author 👈</summary>
-  <ul>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true">Support via Dzen</a></li>
-    <li><a href="https://donate.stream/yoomoney410013774736621">donate.stream</a></li>
-    <li><a href="https://t.me/tribute/app?startapp=dvHM">Telegram</a></li>
-    <li>Crypto (USDT TRC20): <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code></li>
-  </ul>
-</details>
-<details>
-  <summary>💬 Contacts 👈</summary>
-  <ul>
-    <li><a href="https://t.me/u2smart4home">Telegram channel</a></li>
-    <li><a href="https://www.youtube.com/@udobni_dom">YouTube channel</a></li>
-    <li><a href="https://dzen.ru/id/5e32d0969929ba40059b5892">Dzen profile</a></li>
-  </ul>
-</details>
+    <strong>Version: 1.2</strong><br><br>
+
+<strong>Универсальная автоматизация для управления светом</strong><br>
+- Включает свет при движении или открытии двери, выключает по таймеру, поддерживает глобальные условия и дополнительные действия.<br><br>
+
+## Как работает / How it works
+- Включает свет при движении. / Turns lights on when motion is detected.
+- При отсутствии движения запускает выбранный `timer.*` с длительностью из `input_number`. / When motion stops, starts the selected `timer.*` with duration from `input_number`.
+- По завершении таймера выключает свет и запускает дополнительные действия (если заданы). / When timer finishes, turns lights off and runs additional actions (if provided).
+- Опционально: при открытии двери — включение света и запуск таймера. / Optionally: opening a door turns lights on and starts the timer.
+- Можно задать глобальные условия (например: только ночью или только если кто-то дома). / You can set global conditions (e.g., only at night or only when someone is home).
+
+**Контакты автора / Author contacts:**
+- [Telegram канал про автоматизацию домов](https://t.me/u2smart4home)
+- [YouTube: Удобный дом](https://www.youtube.com/@udobni_dom)
+- [Яндекс.Дзен: Мой профиль](https://dzen.ru/id/5e32d0969929ba40059b5892)
+- [Teletype](https://teletype.in/@godisblind)
 
   </details>
   
