@@ -26,7 +26,7 @@
 * [Поддержать на Дзен](https://dzen.ru/id/5e32d0969929ba40059b5892?donate=true)  
 * [Telegram канал](https://t.me/tribute/app?startapp=dvHM)
 * [Донат](https://donate.stream/yoomoney410013774736621)
-* [Криптокошелек (USDT TRC20)] <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code>
+* Криптокошелек (USDT TRC20)  <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code>
 
 ## Связаться / мои каналы
 * [YouTube](https://www.youtube.com/@udobni_dom)
