@@ -28,7 +28,7 @@
 * [Донат](https://donate.stream/yoomoney410013774736621))  
 * [Криптокошелек (USDT TRC20)] <code>TCHekdJZFndXpDrHZGuTmqFNcqhWBTTzPr</code>
 
-## ☕ Поддержка
+## Связаться / мои каналы
 * [YouTube](https://www.youtube.com/@udobni_dom)
 * [Telegram канал](https://t.me/u2smart4home)
 * [Яндекс Дзен](https://dzen.ru/id/5e32d0969929ba40059b5892)
