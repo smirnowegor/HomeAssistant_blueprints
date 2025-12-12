@@ -5,72 +5,33 @@ on:
     paths:
       - 'blueprints/**'
       - 'scripts/**'
-      - '.github/workflows/update_readme.yml'
     branches:
       - main
-  workflow_dispatch: {}
 
 permissions:
   contents: write
 
 jobs:
-  update-readme:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository (full)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Show current branch
-        run: |
-          echo "GITHUB_REF: $GITHUB_REF"
-          git branch --show-current || true
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.x'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyyaml
+      - name: Install PyYAML
+        run: pip install pyyaml
 
-      - name: Show README top (for debug)
-        run: |
-          echo "---- README head before ----"
-          head -n 80 README.md || true
-          echo "----------------------------"
+      - name: Run Generator Script
+        run: python scripts/update_readme.py
 
-      - name: Run generator (produce changes)
-        id: run_generator
-        run: |
-          set -o pipefail
-          python scripts/update_readme.py 2>&1 | tee update_readme.log
-          echo "=== generator stdout (tail 200) ==="
-          tail -n 200 update_readme.log || true
-
-      - name: Show git status & diff
-        run: |
-          echo "git status:"
-          git status --porcelain || true
-          echo "---- diff (if any) ----"
-          git --no-pager diff README.md || true
-          echo "------------------------"
-
-      - name: Commit and push only if changed
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          if git diff --quiet -- README.md; then
-            echo "No changes to README.md -> nothing to commit."
-            exit 0
-          fi
-
-          git add README.md
-          git commit -m "docs: update README with latest blueprint descriptions [skip ci]"
-          git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "docs: update README with latest blueprint descriptions"
+          file_pattern: README.md
+          skip_dirty_check: true  # Чтобы коммитить только если изменилось
