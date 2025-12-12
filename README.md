@@ -19,7 +19,7 @@
 
 <!-- START_BLUEPRINTS -->
 
-### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions
+### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions!
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
@@ -128,7 +128,7 @@ Just click the blue "Import" button under the desired blueprint below.
 
 <!-- START_BLUEPRINTS_EN -->
 
-### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions
+### 🤖 Умная Вытяжка Pro Max: Динамика, Таймер, Условия \ Smart Exhaust Fan Pro Max: Dynamics, Timer, Conditions!
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
