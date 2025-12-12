@@ -34,7 +34,7 @@ Click the blue `Import` badge in a blueprint card — it opens the import dialog
 
 <!-- BLUEPRINTS_START -->
 
-### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint)
+### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint)!
 
 Категория: **automation** — [Исходник](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml) • [Raw](https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)  
 Category: **automation** — [Source](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml) • [Raw](https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)
