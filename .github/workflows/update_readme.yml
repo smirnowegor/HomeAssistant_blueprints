@@ -1,0 +1,36 @@
+name: Auto-Update Documentation
+
+on:
+  push:
+    paths:
+      - 'blueprints/**'   # Запускать, если изменились блупринты
+      - 'scripts/**'      # Или сам скрипт
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Run Generator Script
+        run: python scripts/update_readme.py
+
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "docs: update README with latest blueprint descriptions"
+          file_pattern: README.md
