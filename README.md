@@ -81,7 +81,7 @@ Category: **automation** — [Source](https://github.com/smirnowegor/HomeAssista
 
 <hr />
 
-### 🤖 Умная Стирка: Уведомления, Энергия и Telegram / Smart Washing Machine: Notifications, Energy & Telegram
+### 🤖 Умная Стирка: Уведомления, Энергия и Telegram / Smart Washing Machine: Notifications, Energy & Telegram!!!
 
 Категория: **automation** — [Исходник](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml) • [Raw](https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)  
 Category: **automation** — [Source](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml) • [Raw](https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)
