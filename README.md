@@ -177,7 +177,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <details>
     <summary><b>Подробное описание</b></summary>
     <strong>Version: 1.2</strong><br>
-<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и защита от цикличных срабатываний. Исправлена ошибка при пустом датчике двери. / Added sensor anti-bounce filtering (0.5s on / 2s off) and loop protection. Fixed optional door sensor error.<br><br>
+<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и фикс опциональности датчика двери. / Added sensor anti-bounce filtering and fixed optional door sensor issue.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -442,7 +442,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <details>
     <summary><b>Detailed Description</b></summary>
     <strong>Version: 1.2</strong><br>
-<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и защита от цикличных срабатываний. Исправлена ошибка при пустом датчике двери. / Added sensor anti-bounce filtering (0.5s on / 2s off) and loop protection. Fixed optional door sensor error.<br><br>
+<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и фикс опциональности датчика двери. / Added sensor anti-bounce filtering and fixed optional door sensor issue.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
