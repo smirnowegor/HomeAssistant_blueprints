@@ -66,7 +66,7 @@ blueprint:
     </ol>
     </details>
 
-  domain: automation
+domain: automation
   input:
     motion_sensors:
       name: "Датчики движения"
@@ -78,7 +78,7 @@ blueprint:
           multiple: true
     door_sensor:
       name: "Датчик двери (опционально)"
-      default: ""
+      default: []
       selector:
         entity:
           domain: binary_sensor
@@ -116,20 +116,17 @@ trigger:
   - platform: state
     entity_id: !input motion_sensors
     to: "on"
-    # Небольшая задержка, чтобы отсечь электрические наводки (искры)
     for: "00:00:00.5"
     id: "motion_on"
 
-  # 2. Движение прекратилось (ГЛАВНОЕ ЛЕКАРСТВО)
+  # 2. Движение прекратилось
   - platform: state
     entity_id: !input motion_sensors
     to: "off"
-    # Ждем 2 секунды. Если датчик "дребезжит" (off->on->off), 
-    # это событие просто не сработает, и таймер не будет дергаться.
     for: "00:00:02"
     id: "motion_off"
 
-  # 3. Дверь
+  # 3. Дверь (Используем фильтр, чтобы избежать ошибки пустого entity_id)
   - platform: state
     entity_id: !input door_sensor
     to: "on"
@@ -143,10 +140,11 @@ trigger:
     id: "timer_finished"
 
 condition:
+  # Проверка: если сработал триггер двери, но сам датчик не задан (пустой список), останавливаем
   - condition: template
     value_template: >
       {% if trigger.id == 'door_opened' %}
-        {{ trigger.entity_id is defined and trigger.entity_id != '' }}
+        {{ trigger.entity_id is defined and trigger.entity_id != none and trigger.entity_id != '' }}
       {% else %}
         true
       {% endif %}
@@ -157,7 +155,6 @@ action:
   - variables:
       motion_entities: !input motion_sensors
       delay_input: !input off_delay_input_number
-      # Вычисляем время с прошлого запуска
       last_run_diff: >
         {{ as_timestamp(now()) - as_timestamp(this.attributes.last_triggered | default(0)) | float }}
 
@@ -176,9 +173,6 @@ action:
       - conditions:
           - condition: trigger
             id: "motion_on"
-          # Возвращаем СТРОГУЮ защиту. 
-          # Если датчик сходит с ума и шлет сигналы каждые 3 сек, мы их просто игнорируем.
-          # Таймер продолжит тикать, но свет не выключится, пока датчик в 'on'.
           - condition: template
             value_template: "{{ last_run_diff > 4 }}"
         sequence:
@@ -205,7 +199,6 @@ action:
       - conditions:
           - condition: trigger
             id: "timer_finished"
-          # Финальная проверка: если датчик всё еще "глючит" в положение ON, свет не погаснет.
           - condition: template
             value_template: "{{ expand(motion_entities) | selectattr('state', 'eq', 'on') | list | count == 0 }}"
         sequence:
