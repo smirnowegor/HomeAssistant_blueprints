@@ -116,7 +116,7 @@ trigger:
   - platform: state
     entity_id: !input motion_sensors
     to: "on"
-    for: "00:00:00.5"
+    for: "00:00:00.1"
     id: "motion_on"
 
   # 2. Движение прекратилось
