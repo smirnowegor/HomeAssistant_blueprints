@@ -1,0 +1,5 @@
+2026-02-10 16:34:51,362 INFO: Processing: blueprints\automation\smirnowegor\DDmoveFullcontrol.yaml (Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer))
+2026-02-10 16:34:51,503 INFO: Processing: blueprints\automation\smirnowegor\washingMachine.yaml (Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint))
+2026-02-10 16:34:51,529 INFO: Replaced RU blueprint block in README
+2026-02-10 16:34:51,554 INFO: Replaced EN blueprint block in README
+2026-02-10 16:34:51,561 INFO: ✅ README.md updated successfully!

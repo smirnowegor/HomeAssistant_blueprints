@@ -19,11 +19,16 @@
 
 <!-- START_BLUEPRINTS -->
 
+#### automation
+
+
 ### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
 <details>
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
   **Категория:** automation | [📂 Исходный код](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml)
+  
+  
 
   [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)
 
@@ -169,6 +174,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <summary><b>📖 Развернуть описание и установку</b></summary>
   
   **Категория:** automation | [📂 Исходный код](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
+  
+  
 
   [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
 
@@ -284,11 +291,16 @@ Just click the blue "Import" button under the desired blueprint below.
 
 <!-- START_BLUEPRINTS_EN -->
 
+#### automation
+
+
 ### 🤖 Стиральная машина: уведомления и напоминания (универсальный Blueprint) \ Washing machine: notifications and reminders (universal Blueprint)
 <details>
   <summary><b>📖 Expand Description and Installation</b></summary>
   
   **Category:** automation | [📂 Source Code](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/washingMachine.yaml)
+  
+  
 
   [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/washingMachine.yaml)
 
@@ -434,6 +446,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <summary><b>📖 Expand Description and Installation</b></summary>
   
   **Category:** automation | [📂 Source Code](https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
+  
+  
 
   [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint url pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/smirnowegor/HomeAssistant_blueprints/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml)
 
