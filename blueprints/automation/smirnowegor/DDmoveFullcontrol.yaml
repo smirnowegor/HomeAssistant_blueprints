@@ -1,8 +1,8 @@
 blueprint:
   name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
-    <strong>Version: 1.3</strong><br>
-    <strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
+    <strong>Version: 1.4</strong><br>
+    <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
     <strong>Основное что делает блупринт:</strong><br>
     Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -148,6 +148,12 @@ trigger:
       entity_id: !input timer_entity
     id: "timer_finished"
 
+  # Доп. триггер: состояние таймера -> "idle" (защита от ошибки описания триггера в UI)
+  - platform: state
+    entity_id: !input timer_entity
+    to: "idle"
+    id: "timer_finished_state"
+
 condition:
   # Проверка: если сработал триггер двери, но датчик не выбран, условие не проходит
   - condition: template
@@ -211,8 +217,8 @@ action:
 
       # --- СЦЕНАРИЙ Г: ФИНАЛ ---
       - conditions:
-          - condition: trigger
-            id: "timer_finished"
+          - condition: template
+            value_template: "{{ trigger.id in ['timer_finished','timer_finished_state'] }}"
           - condition: template
             value_template: "{{ expand(motion_entities) | selectattr('state', 'eq', 'on') | list | count == 0 }}"
         sequence:
