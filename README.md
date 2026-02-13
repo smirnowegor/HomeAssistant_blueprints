@@ -183,8 +183,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.2</strong><br>
-<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и фикс опциональности датчика двери. / Added sensor anti-bounce filtering and fixed optional door sensor issue.<br><br>
+    <strong>Version: 1.3</strong><br>
+<strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -211,7 +211,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <ol>
   <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
   <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
-  <li><strong>Защита:</strong> блокировка повторного срабатывания на 4 секунды для предотвращения «петли».</li>
+  <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
   <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
 </ol>
 </details>
@@ -243,7 +243,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <ol>
   <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
   <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
-  <li><strong>Protection:</strong> 4-second cooldown to prevent re-triggering loops.</li>
+  <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
   <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
 </ol>
 </details>
@@ -455,8 +455,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.2</strong><br>
-<strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и фикс опциональности датчика двери. / Added sensor anti-bounce filtering and fixed optional door sensor issue.<br><br>
+    <strong>Version: 1.3</strong><br>
+<strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -483,7 +483,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <ol>
   <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
   <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
-  <li><strong>Защита:</strong> блокировка повторного срабатывания на 4 секунды для предотвращения «петли».</li>
+  <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
   <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
 </ol>
 </details>
@@ -515,7 +515,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <ol>
   <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
   <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
-  <li><strong>Protection:</strong> 4-second cooldown to prevent re-triggering loops.</li>
+  <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
   <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
 </ol>
 </details>
