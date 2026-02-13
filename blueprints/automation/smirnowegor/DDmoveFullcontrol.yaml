@@ -1,8 +1,8 @@
 blueprint:
   name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
-    <strong>Version: 1.2</strong><br>
-    <strong>Change Log (v1.2):</strong> Фильтрация «дребезга» датчиков (0.5с на вкл / 2с на выкл) и фикс опциональности датчика двери. / Added sensor anti-bounce filtering and fixed optional door sensor issue.<br><br>
+    <strong>Version: 1.3</strong><br>
+    <strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
 
     <strong>Основное что делает блупринт:</strong><br>
     Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -29,7 +29,7 @@ blueprint:
     <ol>
       <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
       <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
-      <li><strong>Защита:</strong> блокировка повторного срабатывания на 4 секунды для предотвращения «петли».</li>
+      <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
       <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
     </ol>
     </details>
@@ -61,7 +61,7 @@ blueprint:
     <ol>
       <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
       <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
-      <li><strong>Protection:</strong> 4-second cooldown to prevent re-triggering loops.</li>
+      <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
       <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
     </ol>
     </details>
@@ -97,6 +97,15 @@ blueprint:
       name: "Задержка (минуты)"
       selector:
         entity: {domain: input_number}
+    loop_cooldown_seconds:
+      name: "Loop protection (seconds)"
+      default: 1
+      selector:
+        number:
+          min: 0
+          max: 30
+          step: 1
+          unit_of_measurement: s
     timer_finished_actions:
       name: "Действия после выключения"
       default: []
@@ -116,7 +125,7 @@ trigger:
   - platform: state
     entity_id: !input motion_sensors
     to: "on"
-    for: "00:00:00.1"
+    for: "00:00:00.5"
     id: "motion_on"
 
   # 2. Движение прекратилось
@@ -154,7 +163,9 @@ condition:
 action:
   - variables:
       motion_entities: !input motion_sensors
+      lights_entities: !input lights
       delay_input: !input off_delay_input_number
+      loop_cooldown: !input loop_cooldown_seconds
       last_run_diff: >
         {{ as_timestamp(now()) - as_timestamp(this.attributes.last_triggered | default(0)) | float }}
 
@@ -174,7 +185,10 @@ action:
           - condition: trigger
             id: "motion_on"
           - condition: template
-            value_template: "{{ last_run_diff > 4 }}"
+            value_template: >
+              {% set all_lights = expand(lights_entities) | list %}
+              {% set all_off = all_lights | selectattr('state','eq','off') | list | count == (all_lights | count) %}
+              {{ last_run_diff > loop_cooldown or all_off }}
         sequence:
           - action: light.turn_on
             target: !input lights
