@@ -183,8 +183,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.3</strong><br>
-<strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
+    <strong>Version: 1.4</strong><br>
+<strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
@@ -455,8 +455,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.3</strong><br>
-<strong>Change Log (v1.3):</strong> Добавлена настраиваемая защита от «петли» (loop cooldown, по умолчанию 1 с), синхронизирован debounce датчика движения (0.5 с) и улучшена логика повторного включения света после выключения. / Added configurable loop protection (default 1 s), synchronized motion debounce (0.5 s) and improved immediate re‑on behavior after lights off.<br><br>
+    <strong>Version: 1.4</strong><br>
+<strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
 Универсальная автоматизация для управления светом: включает свет при движении или открытии двери, запускает таймер при отсутствии движения и выключает свет по его завершении. Содержит встроенную защиту от «дребезга» датчиков и ложных срабатываний. Поддерживает глобальные условия и дополнительные действия после выключения.<br><br>
