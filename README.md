@@ -184,7 +184,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <details>
     <summary><b>Подробное описание</b></summary>
     <strong>Version: 1.5</strong><br>
-<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. Миграция на современный синтаксис HA 2024.8+ (triggers/actions/conditions, trigger: вместо platform:). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version. Migrated to modern HA 2024.8+ syntax (triggers/actions/conditions, trigger: instead of platform:). Added source_url.<br><br>
+<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
@@ -457,7 +457,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
   <details>
     <summary><b>Detailed Description</b></summary>
     <strong>Version: 1.5</strong><br>
-<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. Миграция на современный синтаксис HA 2024.8+ (triggers/actions/conditions, trigger: вместо platform:). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version. Migrated to modern HA 2024.8+ syntax (triggers/actions/conditions, trigger: instead of platform:). Added source_url.<br><br>
+<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
