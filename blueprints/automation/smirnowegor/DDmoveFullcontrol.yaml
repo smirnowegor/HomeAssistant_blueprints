@@ -1,7 +1,8 @@
 blueprint:
   name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
-    <strong>Version: 1.4</strong><br>
+    <strong>Version: 1.5</strong><br>
+    <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version.<br><br>
     <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
     <strong>Основное что делает блупринт:</strong><br>
@@ -19,7 +20,7 @@ blueprint:
     <p>Шаблон объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута. Удобен для мест с нестабильно работающими датчиками благодаря программной фильтрации сигналов.</p>
     <ol>
       <li><strong>Надежность</strong> — игнорирует кратковременные ложные срабатывания датчиков движения.</li>
-      <li><strong>Гибкость</strong> — длительность через input_number, поддержка условий и пост-действий.</li>
+      <li><strong>Гибкость</strong> — длительность через number selector, поддержка условий и пост-действий.</li>
       <li><strong>Интеграция</strong> — выполнение любых действий (сцены, шторы) после выключения света.</li>
     </ol>
     </details>
@@ -51,7 +52,7 @@ blueprint:
     <p>This blueprint combines multiple trigger sources and provides flexible timeout settings. It is ideal for areas with "noisy" sensors thanks to software signal filtering.</p>
     <ol>
       <li><strong>Reliability</strong> — ignores short false motion signals (anti-bounce).</li>
-      <li><strong>Flexibility</strong> — duration via input_number, supports conditions and post-actions.</li>
+      <li><strong>Flexibility</strong> — duration via number selector, supports conditions and post-actions.</li>
       <li><strong>Integration</strong> — run any actions (scripts, covers) after lights turn off.</li>
     </ol>
     </details>
@@ -67,6 +68,7 @@ blueprint:
     </details>
 
   domain: automation
+  min_version: 2024.8.0
   input:
     motion_sensors:
       name: "Датчики движения"
@@ -91,12 +93,21 @@ blueprint:
           entity: {domain: light}
     timer_entity:
       name: "Таймер (Helper)"
+      description: "Создайте helper Timer вручную: Settings → Devices & services → Helpers → Create helper → Timer. Затем выберите его здесь."
       selector:
-        entity: {domain: timer}
-    off_delay_input_number:
-      name: "Задержка (минуты)"
+        entity:
+          domain: timer
+    off_delay_minutes:
+      name: "Задержка выключения (минуты)"
+      description: "Время в минутах до выключения света после прекращения движения."
+      default: 5
       selector:
-        entity: {domain: input_number}
+        number:
+          min: 0
+          max: 1440
+          step: 1
+          unit_of_measurement: min
+          mode: slider
     loop_cooldown_seconds:
       name: "Loop protection (seconds)"
       default: 1
@@ -170,7 +181,7 @@ action:
   - variables:
       motion_entities: !input motion_sensors
       lights_entities: !input lights
-      delay_input: !input off_delay_input_number
+      delay_minutes: !input off_delay_minutes
       loop_cooldown: !input loop_cooldown_seconds
       last_run_diff: >
         {{ as_timestamp(now()) - as_timestamp(this.attributes.last_triggered | default(0)) | float }}
@@ -212,7 +223,7 @@ action:
             target: {entity_id: !input timer_entity}
             data:
               duration: >
-                {% set m = states(delay_input) | float(0) | int %}
+                {% set m = delay_minutes | int %}
                 {{ "%02d:%02d:00" | format(m // 60, m % 60) }}
 
       # --- СЦЕНАРИЙ Г: ФИНАЛ ---
