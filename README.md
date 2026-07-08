@@ -183,7 +183,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.5</strong><br>
+    <strong>Version: 1.5.1</strong><br>
+<strong>Change Log (v1.5.1):</strong> Fix premature light off on timer.cancel (scenario G now only triggers on timer_finished event, not timer_finished_state). Set min: 1 for off_delay_minutes to prevent timer loop.<br><br>
 <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
@@ -456,7 +457,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.5</strong><br>
+    <strong>Version: 1.5.1</strong><br>
+<strong>Change Log (v1.5.1):</strong> Fix premature light off on timer.cancel (scenario G now only triggers on timer_finished event, not timer_finished_state). Set min: 1 for off_delay_minutes to prevent timer loop.<br><br>
 <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
