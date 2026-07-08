@@ -2,7 +2,7 @@ blueprint:
   name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
     <strong>Version: 1.5</strong><br>
-    <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version.<br><br>
+    <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. Миграция на современный синтаксис HA 2024.8+ (triggers/actions/conditions, trigger: вместо platform:). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version. Migrated to modern HA 2024.8+ syntax (triggers/actions/conditions, trigger: instead of platform:). Added source_url.<br><br>
     <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
     <strong>Основное что делает блупринт:</strong><br>
@@ -76,28 +76,32 @@ blueprint:
       default: []
       selector:
         entity:
-          domain: binary_sensor
-          device_class: [motion, occupancy]
+          filter:
+            - domain: binary_sensor
+              device_class: [motion, occupancy]
           multiple: true
     door_sensor:
       name: "Датчик двери (опционально)"
       default: []
       selector:
         entity:
-          domain: binary_sensor
-          device_class: door
+          filter:
+            - domain: binary_sensor
+              device_class: door
           multiple: true
     lights:
       name: "Свет"
       selector:
         target:
-          entity: {domain: light}
+          entity:
+            - domain: light
     timer_entity:
       name: "Таймер (Helper)"
       description: "Создайте helper Timer вручную: Settings → Devices & services → Helpers → Create helper → Timer. Затем выберите его здесь."
       selector:
         entity:
-          domain: timer
+          filter:
+            - domain: timer
     off_delay_minutes:
       name: "Задержка выключения (минуты)"
       description: "Время в минутах до выключения света после прекращения движения."
@@ -132,41 +136,41 @@ blueprint:
 mode: parallel
 max: 10
 
-trigger:
+triggers:
   # 1. Движение обнаружено
-  - platform: state
+  - trigger: state
     entity_id: !input motion_sensors
     to: "on"
     for: "00:00:00.5"
     id: "motion_on"
 
   # 2. Движение прекратилось
-  - platform: state
+  - trigger: state
     entity_id: !input motion_sensors
     to: "off"
     for: "00:00:02"
     id: "motion_off"
 
   # 3. Дверь
-  - platform: state
+  - trigger: state
     entity_id: !input door_sensor
     to: "on"
     id: "door_opened"
 
   # 4. Таймер
-  - platform: event
+  - trigger: event
     event_type: timer.finished
     event_data:
       entity_id: !input timer_entity
     id: "timer_finished"
 
   # Доп. триггер: состояние таймера -> "idle" (защита от ошибки описания триггера в UI)
-  - platform: state
+  - trigger: state
     entity_id: !input timer_entity
     to: "idle"
     id: "timer_finished_state"
 
-condition:
+conditions:
   # Проверка: если сработал триггер двери, но датчик не выбран, условие не проходит
   - condition: template
     value_template: >
@@ -178,7 +182,7 @@ condition:
   - condition: and
     conditions: !input global_conditions
 
-action:
+actions:
   - variables:
       motion_entities: !input motion_sensors
       lights_entities: !input lights
