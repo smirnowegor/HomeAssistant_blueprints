@@ -183,7 +183,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.4</strong><br>
+    <strong>Version: 1.5</strong><br>
+<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
@@ -201,7 +202,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <p>Шаблон объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута. Удобен для мест с нестабильно работающими датчиками благодаря программной фильтрации сигналов.</p>
 <ol>
   <li><strong>Надежность</strong> — игнорирует кратковременные ложные срабатывания датчиков движения.</li>
-  <li><strong>Гибкость</strong> — длительность через input_number, поддержка условий и пост-действий.</li>
+  <li><strong>Гибкость</strong> — длительность через number selector, поддержка условий и пост-действий.</li>
   <li><strong>Интеграция</strong> — выполнение любых действий (сцены, шторы) после выключения света.</li>
 </ol>
 </details>
@@ -233,7 +234,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <p>This blueprint combines multiple trigger sources and provides flexible timeout settings. It is ideal for areas with "noisy" sensors thanks to software signal filtering.</p>
 <ol>
   <li><strong>Reliability</strong> — ignores short false motion signals (anti-bounce).</li>
-  <li><strong>Flexibility</strong> — duration via input_number, supports conditions and post-actions.</li>
+  <li><strong>Flexibility</strong> — duration via number selector, supports conditions and post-actions.</li>
   <li><strong>Integration</strong> — run any actions (scripts, covers) after lights turn off.</li>
 </ol>
 </details>
@@ -455,7 +456,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.4</strong><br>
+    <strong>Version: 1.5</strong><br>
+<strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен min_version. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added min_version.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
 
 <strong>Основное что делает блупринт:</strong><br>
@@ -473,7 +475,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <p>Шаблон объединяет несколько источников триггеров и даёт гибкие настройки тайм-аута. Удобен для мест с нестабильно работающими датчиками благодаря программной фильтрации сигналов.</p>
 <ol>
   <li><strong>Надежность</strong> — игнорирует кратковременные ложные срабатывания датчиков движения.</li>
-  <li><strong>Гибкость</strong> — длительность через input_number, поддержка условий и пост-действий.</li>
+  <li><strong>Гибкость</strong> — длительность через number selector, поддержка условий и пост-действий.</li>
   <li><strong>Интеграция</strong> — выполнение любых действий (сцены, шторы) после выключения света.</li>
 </ol>
 </details>
@@ -505,7 +507,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <p>This blueprint combines multiple trigger sources and provides flexible timeout settings. It is ideal for areas with "noisy" sensors thanks to software signal filtering.</p>
 <ol>
   <li><strong>Reliability</strong> — ignores short false motion signals (anti-bounce).</li>
-  <li><strong>Flexibility</strong> — duration via input_number, supports conditions and post-actions.</li>
+  <li><strong>Flexibility</strong> — duration via number selector, supports conditions and post-actions.</li>
   <li><strong>Integration</strong> — run any actions (scripts, covers) after lights turn off.</li>
 </ol>
 </details>
