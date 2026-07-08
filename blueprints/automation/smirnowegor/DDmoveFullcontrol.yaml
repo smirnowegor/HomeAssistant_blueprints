@@ -69,6 +69,7 @@ blueprint:
 
   domain: automation
   min_version: 2024.8.0
+  source_url: https://github.com/smirnowegor/HomeAssistant_blueprints/blob/main/blueprints/automation/smirnowegor/DDmoveFullcontrol.yaml
   input:
     motion_sensors:
       name: "Датчики движения"
