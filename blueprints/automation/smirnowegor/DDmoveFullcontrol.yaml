@@ -107,7 +107,7 @@ blueprint:
       default: 5
       selector:
         number:
-          min: 0
+          min: 1
           max: 1440
           step: 1
           unit_of_measurement: min
@@ -233,7 +233,7 @@ action:
       # --- СЦЕНАРИЙ Г: ФИНАЛ ---
       - conditions:
           - condition: template
-            value_template: "{{ trigger.id in ['timer_finished','timer_finished_state'] }}"
+            value_template: "{{ trigger.id == 'timer_finished' }}"
           - condition: template
             value_template: "{{ expand(motion_entities) | selectattr('state', 'eq', 'on') | list | count == 0 }}"
         sequence:
