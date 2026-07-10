@@ -183,7 +183,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Подробное описание</b></summary>
-    <strong>Version: 1.5.1</strong><br>
+    <strong>Version: 1.6.0</strong><br>
+<strong>Change Log (v1.6.0):</strong> Добавлен триггер закрытия двери (door_closed) и Сценарий Д — запуск таймера при закрытии двери. Теперь автоматизация корректно работает только от датчика двери без датчиков движения. / Added door_closed trigger and Scenario E — starts timer on door close. Automation now works correctly with door sensor only (no motion sensors required).<br><br>
 <strong>Change Log (v1.5.1):</strong> Fix premature light off on timer.cancel (scenario G now only triggers on timer_finished event, not timer_finished_state). Set min: 1 for off_delay_minutes to prevent timer loop.<br><br>
 <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
@@ -212,7 +213,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <summary>⚙️ Как это работает (кратко)</summary>
 <ol>
   <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
-  <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
+  <li><strong>Остановка движения / закрытие двери:</strong> если движения нет более 2с или дверь закрылась → запускаем таймер на X минут.</li>
   <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
   <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
 </ol>
@@ -244,7 +245,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <summary>⚙️ How it works (short)</summary>
 <ol>
   <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
-  <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
+  <li><strong>Motion off / door closed:</strong> if no motion for >2s, or door closed (when no motion sensors active) → start timer for X minutes.</li>
   <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
   <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
 </ol>
@@ -457,7 +458,8 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 
   <details>
     <summary><b>Detailed Description</b></summary>
-    <strong>Version: 1.5.1</strong><br>
+    <strong>Version: 1.6.0</strong><br>
+<strong>Change Log (v1.6.0):</strong> Добавлен триггер закрытия двери (door_closed) и Сценарий Д — запуск таймера при закрытии двери. Теперь автоматизация корректно работает только от датчика двери без датчиков движения. / Added door_closed trigger and Scenario E — starts timer on door close. Automation now works correctly with door sensor only (no motion sensors required).<br><br>
 <strong>Change Log (v1.5.1):</strong> Fix premature light off on timer.cancel (scenario G now only triggers on timer_finished event, not timer_finished_state). Set min: 1 for off_delay_minutes to prevent timer loop.<br><br>
 <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
 <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
@@ -486,7 +488,7 @@ Universal solution: notifies about start/finish, calculates cost, reminds about 
 <summary>⚙️ Как это работает (кратко)</summary>
 <ol>
   <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
-  <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
+  <li><strong>Остановка движения / закрытие двери:</strong> если движения нет более 2с или дверь закрылась → запускаем таймер на X минут.</li>
   <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
   <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
 </ol>
@@ -518,7 +520,7 @@ Universal automation for lighting: turns lights on on motion or door open, start
 <summary>⚙️ How it works (short)</summary>
 <ol>
   <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
-  <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
+  <li><strong>Motion off / door closed:</strong> if no motion for >2s, or door closed (when no motion sensors active) → start timer for X minutes.</li>
   <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
   <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
 </ol>
