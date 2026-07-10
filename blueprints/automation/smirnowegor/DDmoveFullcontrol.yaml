@@ -1,7 +1,8 @@
 blueprint:
   name: "Универсальная автоматизация управления светом (движение + дверь + таймер) / Universal light control (motion + door + timer)"
   description: |
-    <strong>Version: 1.5.1</strong><br>
+    <strong>Version: 1.6.0</strong><br>
+    <strong>Change Log (v1.6.0):</strong> Добавлен триггер закрытия двери (door_closed) и Сценарий Д — запуск таймера при закрытии двери. Теперь автоматизация корректно работает только от датчика двери без датчиков движения. / Added door_closed trigger and Scenario E — starts timer on door close. Automation now works correctly with door sensor only (no motion sensors required).<br><br>
     <strong>Change Log (v1.5.1):</strong> Fix premature light off on timer.cancel (scenario G now only triggers on timer_finished event, not timer_finished_state). Set min: 1 for off_delay_minutes to prevent timer loop.<br><br>
     <strong>Change Log (v1.5):</strong> Замена input_number helper на number selector — устранена ошибка создания helper из UI blueprint (required key not provided @ data['max']/['min']/['name']). Добавлен source_url. / Replaced input_number helper with number selector — fixed helper creation error from blueprint UI. Added source_url.<br><br>
     <strong>Change Log (v1.4):</strong> Добавлен дополнительный state‑триггер для таймера (устранение ошибки фронтенда при описании триггера), улучшена совместимость с UI. / Added additional state trigger for timer (workaround for frontend "describe trigger" error), improved UI compatibility.<br><br>
@@ -30,7 +31,7 @@ blueprint:
     <summary>⚙️ Как это работает (кратко)</summary>
     <ol>
       <li><strong>Старт:</strong> движение (длительностью >0.5с) или дверь → включаем свет, отменяем таймер.</li>
-      <li><strong>Остановка движения:</strong> если движения нет более 2с → запускаем таймер на X минут.</li>
+      <li><strong>Остановка движения / закрытие двери:</strong> если движения нет более 2с или дверь закрылась → запускаем таймер на X минут.</li>
       <li><strong>Защита:</strong> блокировка повторного срабатывания (настраиваемая, по умолчанию 1 с) для предотвращения «петли».</li>
       <li><strong>Финиш:</strong> по завершении таймера — выключаем свет и выполняем доп. действия.</li>
     </ol>
@@ -62,7 +63,7 @@ blueprint:
     <summary>⚙️ How it works (short)</summary>
     <ol>
       <li><strong>Start:</strong> motion (>0.5s) or door open → turn lights on and cancel timer.</li>
-      <li><strong>Motion off:</strong> if no motion for >2s → start timer for X minutes.</li>
+      <li><strong>Motion off / door closed:</strong> if no motion for >2s, or door closed (when no motion sensors active) → start timer for X minutes.</li>
       <li><strong>Protection:</strong> configurable loop cooldown (default 1 s) to prevent re-triggering loops.</li>
       <li><strong>Finish:</strong> when timer finishes → turn lights off and run additional actions.</li>
     </ol>
@@ -151,11 +152,17 @@ trigger:
     for: "00:00:02"
     id: "motion_off"
 
-  # 3. Дверь
+  # 3. Дверь открылась
   - platform: state
     entity_id: !input door_sensor
     to: "on"
     id: "door_opened"
+
+  # 3b. Дверь закрылась
+  - platform: state
+    entity_id: !input door_sensor
+    to: "off"
+    id: "door_closed"
 
   # 4. Таймер
   - platform: event
@@ -174,7 +181,7 @@ condition:
   # Проверка: если сработал триггер двери, но датчик не выбран, условие не проходит
   - condition: template
     value_template: >
-      {% if trigger.id == 'door_opened' %}
+      {% if trigger.id in ['door_opened', 'door_closed'] %}
         {{ trigger.entity_id is defined and trigger.entity_id != none and trigger.entity_id != '' }}
       {% else %}
         true
@@ -217,10 +224,24 @@ action:
           - action: timer.cancel
             target: {entity_id: !input timer_entity}
 
-      # --- СЦЕНАРИЙ В: ЗАПУСК ТАЙМЕРА ---
+      # --- СЦЕНАРИЙ В: ЗАПУСК ТАЙМЕРА (движение) ---
       - conditions:
           - condition: trigger
             id: "motion_off"
+          - condition: template
+            value_template: "{{ expand(motion_entities) | selectattr('state', 'eq', 'on') | list | count == 0 }}"
+        sequence:
+          - action: timer.start
+            target: {entity_id: !input timer_entity}
+            data:
+              duration: >
+                {% set m = delay_minutes | int %}
+                {{ "%02d:%02d:00" | format(m // 60, m % 60) }}
+
+      # --- СЦЕНАРИЙ Д: ЗАПУСК ТАЙМЕРА (дверь закрылась) ---
+      - conditions:
+          - condition: trigger
+            id: "door_closed"
           - condition: template
             value_template: "{{ expand(motion_entities) | selectattr('state', 'eq', 'on') | list | count == 0 }}"
         sequence:
